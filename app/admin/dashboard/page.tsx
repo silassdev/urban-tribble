@@ -101,7 +101,7 @@ export default function AdminDashboardPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-white mb-1">Admin Dashboard</h1>
+                        <h1 className="text-1xl font-bold text-white mb-1">Admin Dashboard</h1>
                         <p className="text-slate-400">Manage contacts and view analytics</p>
                     </div>
                     <button
@@ -214,8 +214,8 @@ export default function AdminDashboardPage() {
                                                     <button
                                                         onClick={() => markResolved(contact._id, !contact.resolved)}
                                                         className={`px-3 py-1 rounded-lg transition text-sm ${contact.resolved
-                                                                ? 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                                                                : 'bg-green-600 text-white hover:bg-green-700'
+                                                            ? 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                                                            : 'bg-green-600 text-white hover:bg-green-700'
                                                             }`}
                                                     >
                                                         {contact.resolved ? 'Unresolve' : 'Resolve'}

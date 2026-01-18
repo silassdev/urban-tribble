@@ -10,9 +10,9 @@ async function connectDB() {
     await mongoose.connect(MONGODB_URI as string)
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        // Verify authentication
+        const { id } = await params;
         const admin = requireAdminAuth(request)
         if (!admin) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -24,7 +24,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         const { resolve } = body
 
         const contact = await Contact.findByIdAndUpdate(
-            params.id,
+            id,
             { resolved: !!resolve },
             { new: true }
         ).lean()

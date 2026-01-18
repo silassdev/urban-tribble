@@ -24,4 +24,4 @@ const ContactSchema = new mongoose.Schema<IContact>({
     country: { type: String }
 }, { timestamps: true })
 
-export default mongoose.model<IContact>('Contact', ContactSchema)
+export default mongoose.models.Contact || mongoose.model<IContact>('Contact', ContactSchema)

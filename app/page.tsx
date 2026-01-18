@@ -2,6 +2,7 @@ import Hero from '@/app/components/Hero'
 import Marquee from '@/app/components/Marquee'
 import AnimatedLines from '@/app/components/AnimatedLines'
 import FeatureGrid from '@/app/components/FeatureGrid'
+import Team from '@/app/components/Team'
 import Packages from '@/app/components/Packages'
 import SVGDrawing from '@/app/components/SVGDrawing'
 
@@ -14,6 +15,10 @@ export default function Page() {
       </header>
 
       <section>
+        <Packages />
+      </section>
+
+      <section>
         <AnimatedLines />
       </section>
 
@@ -22,7 +27,7 @@ export default function Page() {
       </section>
 
       <section>
-        <Packages />
+        <Team />
       </section>
 
       <section>

@@ -12,4 +12,4 @@ const AdminSchema = new mongoose.Schema<IAdmin>({
     passwordHash: { type: String, required: true }
 }, { timestamps: true })
 
-export default mongoose.model<IAdmin>('Admin', AdminSchema)
+export default mongoose.models.Admin || mongoose.model<IAdmin>('Admin', AdminSchema)

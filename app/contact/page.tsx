@@ -1,19 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FiMail, FiSend, FiMessageSquare, FiUser, FiArrowLeft, FiInfo } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { FiMail, FiSend, FiMessageSquare, FiUser, FiArrowLeft, FiInfo, FiSmartphone, FiShield, FiLock } from "react-icons/fi";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import StatusModal from "@/app/components/StatusModal";
 
 export default function ContactPage() {
     const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<{
+        isOpen: boolean;
+        type: 'success' | 'error';
+        title: string;
+        message: string;
+    }>({
+        isOpen: false,
+        type: 'success',
+        title: '',
+        message: ''
+    });
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        preferredContact: "Email",
         subject: "",
-        message: ""
+        message: "",
+        anonymous: false
     });
+
+    const [clientGeo, setClientGeo] = useState<{ ip?: string; country?: string }>({});
+
+    useEffect(() => {
+        // Optional client-side geo lookup for improved accuracy/localhost testing
+        const fetchGeo = async () => {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                if (data && data.country_name) {
+                    setClientGeo({ ip: data.ip, country: data.country_name });
+                }
+            } catch (err) {
+                console.warn("Client-side geo lookup failed, using server-side only.");
+            }
+        };
+        fetchGeo();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -25,127 +58,166 @@ export default function ContactPage() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    description: formData.message, // Aligning field name for API
+                    clientCountry: clientGeo.country,
+                    clientIp: clientGeo.ip
+                }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                toast.success("Message sent successfully! We'll get back to you soon.");
-                setFormData({ name: "", email: "", subject: "", message: "" });
+                setStatus({
+                    isOpen: true,
+                    type: 'success',
+                    title: 'Transmission Successful',
+                    message: "Your requirements have been securely logged. Our technical team will analyze your request and reach out shortly."
+                });
+                setFormData({
+                    name: "",
+                    email: "",
+                    preferredContact: "Email",
+                    subject: "",
+                    message: "",
+                    anonymous: false
+                });
             } else {
-                toast.error(data.error || "Failed to send message. Please try again.");
+                setStatus({
+                    isOpen: true,
+                    type: 'error',
+                    title: 'Mission Interrupted',
+                    message: data.error || "We encountered a structural anomaly while processing your request. Please try again or contact us directly."
+                });
             }
         } catch (error) {
-            toast.error("An error occurred. Please check your connection.");
+            setStatus({
+                isOpen: true,
+                type: 'error',
+                title: 'Network Disruption',
+                message: "A communication error occurred. Please verify your connection and try re-initializing contact."
+            });
         } finally {
             setLoading(false);
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value, type } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+        }));
     };
 
     return (
-        <main className="relative min-h-screen overflow-hidden">
+        <main className="relative min-h-screen overflow-hidden bg-[#0a0a0b]">
             {/* Animated Background */}
-            <div className="absolute inset-0 -z-10">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"
-                    style={{ animationDuration: '6s' }} />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-emerald-500/10 via-cyan-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse"
-                    style={{ animationDuration: '8s', animationDelay: '1s' }} />
+            <div className="absolute inset-0 -z-10 overflow-hidden">
+                <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] bg-purple-600/10 blur-[120px] rounded-full" />
+                <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-blue-600/10 blur-[100px] rounded-full" />
             </div>
 
-            <div className="container py-20">
-                <div className="max-w-5xl mx-auto">
+            <div className="container py-24 relative z-10">
+                <div className="max-w-6xl mx-auto">
                     {/* Header */}
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-20">
                         <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full glass border border-white/20 backdrop-blur-sm"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full bg-white/5 border border-white/10"
                         >
-                            <FiMail className="text-brand-primary" />
-                            <span className="text-xs font-bold uppercase tracking-wider">Get in Touch</span>
+                            <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400">Direct Communication</span>
                         </motion.div>
 
                         <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-6xl font-black mb-6 tracking-tight"
+                            className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter text-white"
                         >
-                            How can we{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
-                                Help You?
+                            Let's Build Your <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400">
+                                Digital Future
                             </span>
                         </motion.h1>
 
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                            transition={{ delay: 0.1 }}
+                            className="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed"
                         >
-                            Have a question about rankings, feedback on visualizations, or just want to say hi? We'd love to hear from you.
+                            Ready to transform your ideas into reality? Reach out to <strong>AllPilar Solutions</strong> and our experts will help you navigate the next steps.
                         </motion.p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
                         {/* Info Section */}
                         <motion.div
-                            initial={{ opacity: 0, x: -30 }}
+                            initial={{ opacity: 0, x: -40 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="lg:col-span-2 space-y-8"
+                            transition={{ delay: 0.2 }}
+                            className="lg:col-span-4 space-y-12"
                         >
-                            <div className="glass rounded-3xl p-8 border border-white/20 backdrop-blur-xl shadow-xl">
-                                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                                    <FiInfo className="text-brand-primary" />
-                                    Contact Information
-                                </h3>
+                            <div className="space-y-10">
+                                <div className="space-y-4">
+                                    <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
+                                            <FiInfo className="text-purple-400" />
+                                        </div>
+                                        Connect With Us
+                                    </h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">
+                                        Whether it's a small query or a large-scale project, we're here to listen and provide technical excellence.
+                                    </p>
+                                </div>
+
                                 <div className="space-y-6">
-                                    <div className="flex gap-4">
-                                        <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center shrink-0">
-                                            <FiMail className="text-blue-500 text-xl" />
+                                    <div className="flex gap-5 group p-4 rounded-2xl transition-colors hover:bg-white/5 border border-transparent hover:border-white/5">
+                                        <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0 border border-blue-500/20">
+                                            <FiMail className="text-blue-400 text-xl" />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-sm text-gray-400 uppercase tracking-wider">Email Us</p>
-                                            <p className="text-gray-700 dark:text-gray-200 font-medium">support@gitbattle.com</p>
+                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Inquiries</p>
+                                            <p className="text-white font-medium">hello@allpilar.xyz</p>
                                         </div>
                                     </div>
-                                    <div className="flex gap-4">
-                                        <div className="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center shrink-0">
-                                            <FiMessageSquare className="text-purple-500 text-xl" />
+                                    <div className="flex gap-5 group p-4 rounded-2xl transition-colors hover:bg-white/5 border border-transparent hover:border-white/5">
+                                        <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0 border border-indigo-500/20">
+                                            <FiMessageSquare className="text-indigo-400 text-xl" />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-sm text-gray-400 uppercase tracking-wider">Socials</p>
-                                            <p className="text-gray-700 dark:text-gray-200 font-medium">@gitbattle_app</p>
+                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Collaboration</p>
+                                            <p className="text-white font-medium">partners@allpilar.xyz</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <Link href="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-brand-primary transition-colors font-medium group">
-                                <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+                            <Link href="/" className="inline-flex items-center gap-3 text-slate-500 hover:text-white transition-all font-bold group text-sm uppercase tracking-widest">
+                                <FiArrowLeft className="group-hover:-translate-x-1 transition-transform bg-white/5 p-2 rounded-full w-8 h-8" />
                                 Back to Homepage
                             </Link>
                         </motion.div>
 
                         {/* Form Section */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="lg:col-span-3"
+                            transition={{ delay: 0.3 }}
+                            className="lg:col-span-8 shadow-2xl relative"
                         >
-                            <div className="glass rounded-3xl p-8 md:p-10 border border-white/20 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2 ml-1">
-                                                <FiUser size={14} /> Name
+                            <div className="bg-[#111113] rounded-[2.5rem] p-10 md:p-12 border border-white/5 relative overflow-hidden">
+                                {/* Form subtle accent */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-2xl rounded-full" />
+
+                                <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-3">
+                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                                <FiUser size={12} className="text-purple-400" /> Full Name
                                             </label>
                                             <input
                                                 required
@@ -153,29 +225,67 @@ export default function ContactPage() {
                                                 name="name"
                                                 value={formData.name}
                                                 onChange={handleChange}
-                                                placeholder="John Doe"
-                                                className="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 focus:border-brand-primary outline-none transition-all"
+                                                placeholder="Enter your name"
+                                                className="w-full px-6 py-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-purple-500/50 focus:bg-white/[0.07] outline-none transition-all"
                                             />
                                         </div>
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2 ml-1">
-                                                <FiMail size={14} /> Email
+                                        <div className="space-y-3">
+                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                                <FiMail size={12} className="text-blue-400" /> Professional Email
                                             </label>
                                             <input
-                                                required
+                                                required={!formData.anonymous}
                                                 type="email"
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleChange}
-                                                placeholder="john@example.com"
-                                                className="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 focus:border-brand-primary outline-none transition-all"
+                                                placeholder="email@example.com"
+                                                className={`w-full px-6 py-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-blue-500/50 focus:bg-white/[0.07] outline-none transition-all ${formData.anonymous ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                disabled={formData.anonymous}
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2 ml-1">
-                                            <FiMessageSquare size={14} /> Subject
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-3">
+                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                                <FiSmartphone size={12} className="text-indigo-400" /> Preferred Contact
+                                            </label>
+                                            <select
+                                                name="preferredContact"
+                                                value={formData.preferredContact}
+                                                onChange={handleChange}
+                                                className="w-full px-6 py-5 rounded-2xl bg-[#0a0a0b] border border-white/10 text-white focus:border-indigo-500/50 outline-none transition-all appearance-none cursor-pointer"
+                                            >
+                                                <option value="Email">Email</option>
+                                                <option value="Phone">Phone Call</option>
+                                                <option value="WhatsApp">WhatsApp</option>
+                                                <option value="LinkedIn">LinkedIn</option>
+                                            </select>
+                                        </div>
+                                        <div className="space-y-3">
+                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                                <FiShield size={12} className="text-emerald-400" /> Identity
+                                            </label>
+                                            <div className="flex items-center gap-3 px-6 py-5 bg-[#0a0a0b] border border-white/10 rounded-2xl">
+                                                <input
+                                                    type="checkbox"
+                                                    id="anonymous"
+                                                    name="anonymous"
+                                                    checked={formData.anonymous}
+                                                    onChange={handleChange}
+                                                    className="w-5 h-5 rounded h6 bg-purple-500 cursor-pointer"
+                                                />
+                                                <label htmlFor="anonymous" className="text-slate-300 text-sm cursor-pointer select-none">
+                                                    Submit Anonymously
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                            <FiMessageSquare size={12} className="text-pink-400" /> Brief Subject
                                         </label>
                                         <input
                                             required
@@ -183,14 +293,14 @@ export default function ContactPage() {
                                             name="subject"
                                             value={formData.subject}
                                             onChange={handleChange}
-                                            placeholder="How do rankings work?"
-                                            className="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 focus:border-brand-primary outline-none transition-all"
+                                            placeholder="What can we help you with?"
+                                            className="w-full px-6 py-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-pink-500/50 focus:bg-white/[0.07] outline-none transition-all"
                                         />
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold text-gray-500 dark:text-gray-400 flex items-center gap-2 ml-1">
-                                            <FiMessageSquare size={14} /> Message
+                                    <div className="space-y-3">
+                                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                            <FiMessageSquare size={12} className="text-brand-primary" /> Requirement Details
                                         </label>
                                         <textarea
                                             required
@@ -198,15 +308,15 @@ export default function ContactPage() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             rows={5}
-                                            placeholder="Tell us what's on your mind..."
-                                            className="w-full px-5 py-4 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 focus:border-brand-primary outline-none transition-all resize-none"
+                                            placeholder="Describe your project, timeline, or query..."
+                                            className="w-full px-6 py-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-brand-primary/50 focus:bg-white/[0.07] outline-none transition-all resize-none"
                                         ></textarea>
                                     </div>
 
                                     <button
                                         disabled={loading}
                                         type="submit"
-                                        className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold text-lg shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group"
+                                        className="w-full py-5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black text-lg shadow-2xl shadow-purple-500/20 hover:shadow-purple-500/40 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-4 disabled:opacity-50 disabled:cursor-not-allowed group"
                                     >
                                         {loading ? (
                                             <motion.div
@@ -216,17 +326,34 @@ export default function ContactPage() {
                                             />
                                         ) : (
                                             <>
-                                                Send Message
+                                                Send
                                                 <FiSend className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                             </>
                                         )}
                                     </button>
+
+                                    <div className="flex justify-center items-center gap-6 mt-6">
+                                        <div className="flex items-center gap-2 text-[10px] text-slate-500 uppercase tracking-widest">
+                                            <FiLock className="text-emerald-500" /> 256-bit Encryption
+                                        </div>
+                                        <div className="flex items-center gap-2 text-[10px] text-slate-500 uppercase tracking-widest">
+                                            <FiShield className="text-blue-500" /> Secure Storage
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </motion.div>
                     </div>
                 </div>
             </div>
+
+            <StatusModal
+                isOpen={status.isOpen}
+                onClose={() => setStatus(prev => ({ ...prev, isOpen: false }))}
+                type={status.type}
+                title={status.title}
+                message={status.message}
+            />
         </main>
     );
 }

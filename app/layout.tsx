@@ -17,7 +17,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen font-sans antialiased text-gray-100 overflow-x-hidden transition-colors duration-300 bg-[#0d1117]">
         <SessionProvider>
 
-          <Toaster position="top-right" />
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              className: 'glass border border-white/10 text-white',
+              style: {
+                background: 'rgba(22, 27, 34, 0.8)',
+                backdropFilter: 'blur(12px)',
+                borderRadius: '16px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '600',
+                padding: '16px 24px',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#10b981',
+                  secondary: '#fff',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#ef4444',
+                  secondary: '#fff',
+                },
+              },
+            }}
+          />
           <div className="flex flex-col min-h-screen">
             <Header />
 

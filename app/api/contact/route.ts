@@ -16,16 +16,22 @@ export async function POST(request: NextRequest) {
         await connectDB()
 
         const body = await request.json()
-        const { email, preferredContact, subject, description, message, anonymous } = body
+        const { email, preferredContact, subject, description, message, anonymous, clientCountry, clientIp } = body
 
         const finalSubject = subject || 'Contact Form'
         const finalDescription = description || message || ''
 
-        const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+        let ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
         const userAgent = request.headers.get('user-agent') || ''
 
-        const geoData = await lookupIp(ip)
-        const country = geoData?.country || undefined
+        // Handle localhost detection
+        const isLocal = ip === '::1' || ip.startsWith('127.') || ip === 'unknown'
+
+        let geoData = await lookupIp(ip)
+        let country = geoData?.country || (isLocal ? clientCountry : undefined)
+
+        // If server-side IP is local, prefer client-provided IP for recording
+        if (isLocal && clientIp) ip = clientIp
 
         const contact = await Contact.create({
             email: anonymous ? undefined : email,

@@ -10,8 +10,9 @@ async function connectDB() {
     await mongoose.connect(MONGODB_URI as string)
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
+        const { id } = await params;
         // Verify authentication
         const admin = requireAdminAuth(request)
         if (!admin) {
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
         await connectDB()
 
-        const contact = await Contact.findById(params.id).lean()
+        const contact = await Contact.findById(id).lean()
         if (!contact) {
             return NextResponse.json({ error: 'Contact not found' }, { status: 404 })
         }

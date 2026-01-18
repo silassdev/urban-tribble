@@ -50,7 +50,7 @@ export default function LoginPage() {
                         >
                             Welcome to{" "}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400">
-                                GitBattle
+                                Allpilar Solution
                             </span>
                         </motion.h1>
 
@@ -60,7 +60,7 @@ export default function LoginPage() {
                             transition={{ delay: 0.4 }}
                             className="text-gray-600 dark:text-gray-300"
                         >
-                            Sign in to compare profiles and climb the leaderboard
+                            Log in to access your professional dashboard and solutions
                         </motion.p>
                     </div>
 

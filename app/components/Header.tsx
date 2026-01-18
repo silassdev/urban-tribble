@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, User, LogOut } from 'lucide-react';
 
@@ -22,6 +23,16 @@ export default function Header() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const pathname = usePathname();
+
+  // Define routes where the header SHOULD be visible
+  const MAIN_SITE_ROUTES = ['/', '/about', '/contact', '/privacy', '/terms', '/login'];
+
+  // Hide header if on admin route OR if the route is not in the main site whitelist (404)
+  const isHidden = pathname.startsWith('/admin') || !MAIN_SITE_ROUTES.includes(pathname);
+
+  if (isHidden) return null;
 
   return (
     <header
