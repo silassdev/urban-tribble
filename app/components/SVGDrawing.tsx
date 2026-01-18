@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function SVGDrawing() {
     return (
         <section className="py-20 bg-[#0d1117]">
@@ -55,7 +57,15 @@ export default function SVGDrawing() {
                                 <rect x="140" y="154" width="50" height="6" rx="3" fill="#475569" />
 
                                 {/* Connection Lines */}
-                                <path d="M132 100 C170 80, 200 80, 228 100" stroke="#64748b" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="4 4" />
+                                <path id="connLine" d="M132 100 C170 80, 200 80, 228 100" stroke="#64748b" strokeWidth="2" fill="none" strokeLinecap="round" strokeDasharray="200" strokeDashoffset="200">
+                                    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="2s" fill="freeze" />
+                                </path>
+                                {/* Moving dot along the line */}
+                                <circle r="4" fill="#06b6d4">
+                                    <animateMotion dur="2s" repeatCount="indefinite">
+                                        <mpath xlinkHref="#connLine" />
+                                    </animateMotion>
+                                </circle>
                                 <circle cx="180" cy="86" r="4" fill="#06b6d4" filter="url(#glow)" />
                             </svg>
                         </div>
