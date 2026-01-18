@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiGithub, FiUser, FiLogOut } from 'react-icons/fi';
-// import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   const { data: session } = useSession();
@@ -23,7 +22,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 backdrop-blur-sm ${isScrolled ? 'bg-white/70 dark:bg-slate-900/70 shadow-sm' : 'bg-transparent'
+      className={`sticky top-0 z-50 transition-all duration-300 backdrop-blur-sm ${isScrolled ? 'bg-[#0d1117]/80 shadow-sm border-b border-slate-800' : 'bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,13 +30,12 @@ export default function Header() {
           {/* Left: Brand */}
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-md flex items-center justify-center bg-black/90 dark:bg-white/90 text-white dark:text-black">
-                {/* Simple mark; replace with SVG if you have one */}
+              <div className="w-9 h-9 rounded-md flex items-center justify-center bg-white/10 text-white">
                 <FiGithub className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
-                  GitBattle
+                <span className="font-extrabold text-lg tracking-tight text-white">
+                  Allpilar
                 </span>
                 <div className="text-[12px] text-slate-500 dark:text-slate-400 -mt-0.5">
                   Compare. Visualize. Rank.
@@ -46,7 +44,6 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Middle: nav (desktop) */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
@@ -60,11 +57,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right: actions */}
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-3">
-              {/* <ThemeToggle /> */}
-
               {session ? (
                 <div className="flex items-center gap-3">
                   {session.user?.image && (
@@ -171,10 +165,6 @@ export default function Header() {
                         Sign in
                       </Link>
                     )}
-
-                    <div className="mt-2 border-t border-slate-200 dark:border-slate-800 pt-3">
-                      {/* <ThemeToggle /> */}
-                    </div>
                   </nav>
                 </div>
               </div>

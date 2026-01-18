@@ -2,12 +2,11 @@ import './globals.css';
 import React from 'react';
 import Header from './components/Header';
 import Link from 'next/link';
-// import { ThemeProvider } from './components/ThemeProvider';
 import SessionProvider from './components/SessionProvider';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
-  title: 'GitBattle — Compare GitHub Profiles',
+  title: 'AllPilar — All IT & Web Solution',
   description:
     'GitBattle — compare GitHub profiles with weighted scoring, visualizations, and a global leaderboard.',
 };
