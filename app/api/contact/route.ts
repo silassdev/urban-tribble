@@ -1,58 +1,63 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextRequest, NextResponse } from 'next/server'
+import mongoose from 'mongoose'
+import Contact from '@/app/model/Contact'
+import { sendAdminNotification } from '@/app/utils/mailer'
+import { lookupIp } from '@/app/utils/geoip'
 
-export async function POST(req: Request) {
+const MONGODB_URI = process.env.MONGODB_URI
+
+async function connectDB() {
+    if (mongoose.connection.readyState >= 1) return
+    await mongoose.connect(MONGODB_URI as string)
+}
+
+export async function POST(request: NextRequest) {
     try {
-        const body = await req.json();
-        const { name, email, subject, message } = body;
+        await connectDB()
 
-        // Basic validation
-        if (!name || !email || !subject || !message) {
-            return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+        const body = await request.json()
+        const { email, preferredContact, subject, description, message, anonymous } = body
+
+        const finalSubject = subject || 'Contact Form'
+        const finalDescription = description || message || ''
+
+        const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+        const userAgent = request.headers.get('user-agent') || ''
+
+        const geoData = await lookupIp(ip)
+        const country = geoData?.country || undefined
+
+        const contact = await Contact.create({
+            email: anonymous ? undefined : email,
+            preferredContact,
+            subject: finalSubject,
+            description: finalDescription,
+            ip,
+            userAgent,
+            anonymous: !!anonymous,
+            country
+        })
+
+        const html = `<p><strong>New contact form received</strong></p>
+        <ul>
+            <li><strong>Email:</strong> ${email || '(Anonymous)'}</li>
+            <li><strong>Preferred Contact:</strong> ${preferredContact || '—'}</li>
+            <li><strong>Subject:</strong> ${finalSubject || '—'}</li>
+            <li><strong>Description:</strong> ${finalDescription ? finalDescription.replace(/</g, '&lt;') : '—'}</li>
+            <li><strong>Location:</strong> ${country || 'Unknown'}</li>
+            <li><strong>IP:</strong> ${ip}</li>
+        </ul>
+        <p><a href="${process.env.NEXT_PUBLIC_URL}/admin/login">Open Admin Dashboard</a></p>`
+
+        try {
+            await sendAdminNotification('🔔 New Contact Form - AllPilar', html)
+        } catch (err) {
+            console.error('Failed to send admin notification:', err)
         }
 
-        // Check environment variables
-        const emailUser = process.env.EMAIL_USER;
-        const emailPass = process.env.EMAIL_PASS;
-        const contactEmail = process.env.CONTACT_EMAIL || emailUser;
-
-        if (!emailUser || !emailPass) {
-            console.error('Email environment variables are not set');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
-        }
-
-        // Configure transporter (using Gmail as default example, can be adjusted)
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: emailUser,
-                pass: emailPass,
-            },
-        });
-
-        const mailOptions = {
-            from: emailUser,
-            to: contactEmail,
-            replyTo: email,
-            subject: `[GitBattle Contact] ${subject}`,
-            html: `
-        <div style="font-family: sans-serif; padding: 20px; color: #333;">
-          <h2 style="color: #2563eb;">New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-          <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-          <p><strong>Message:</strong></p>
-          <p style="white-space: pre-wrap;">${message}</p>
-        </div>
-      `,
-        };
-
-        await transporter.sendMail(mailOptions);
-
-        return NextResponse.json({ success: true, message: 'Message sent successfully' }, { status: 200 });
+        return NextResponse.json({ success: true, message: 'Message sent successfully', id: contact._id }, { status: 201 })
     } catch (error) {
-        console.error('Contact API Error:', error);
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        console.error('Contact form error:', error)
+        return NextResponse.json({ error: 'Server error' }, { status: 500 })
     }
 }
