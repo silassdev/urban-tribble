@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* small helpers */
+.text-neon {
+  text-shadow: 0 2px 10px rgba(99, 102, 241, 0.12);
+}
+
+/* hero flashing underline */
+@layer components {
+  .headline-underline {
+    background: linear-gradient(90deg, #6366f1 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ensure marquee repeats */
+.marquee-track>* {
+  display: inline-block;
+  padding: 0 2rem;
+}
