@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { FiArrowRight, FiCheck } from 'react-icons/fi'
+import WebAppArchitecture from './WebAppArchitecture'
 
 const TAGLINES = [
     'One solution for web applications',
@@ -98,38 +99,10 @@ export default function Hero() {
                         transition={{ duration: 0.8 }}
                         className="relative"
                     >
-                        <div className="relative aspect-square md:aspect-video lg:aspect-square rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/50 backdrop-blur-sm shadow-2xl">
+                        <div className="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/50 backdrop-blur-sm shadow-2xl p-8">
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent" />
-
-                            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="relative w-64 h-64">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-sky-500 to-purple-600 rounded-full blur-3xl opacity-20 animate-pulse" />
-                                    <div className="relative z-10 grid grid-cols-2 gap-4 rotate-12">
-                                        <div className="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700 transform translate-y-8">
-                                            <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3">
-                                                <FiCheck className="text-blue-400" />
-                                            </div>
-                                            <div className="h-2 w-20 bg-slate-700 rounded mb-2" />
-                                            <div className="h-2 w-16 bg-slate-700/50 rounded" />
-                                        </div>
-                                        <div className="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700">
-                                            <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center mb-3">
-                                                <div className="w-3 h-3 rounded-full bg-green-500" />
-                                            </div>
-                                            <div className="h-2 w-20 bg-slate-700 rounded mb-2" />
-                                            <div className="h-2 w-12 bg-slate-700/50 rounded" />
-                                        </div>
-                                        <div className="bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700 transform -translate-y-4">
-                                            <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3">
-                                                <div className="w-3 h-3 rounded-full bg-purple-500" />
-                                            </div>
-                                            <div className="h-2 w-16 bg-slate-700 rounded mb-2" />
-                                            <div className="h-2 w-24 bg-slate-700/50 rounded" />
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="relative">
+                                <WebAppArchitecture />
                             </div>
                         </div>
                     </motion.div>

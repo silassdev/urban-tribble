@@ -17,44 +17,44 @@ const TIERS: Tier[] = [
     {
         id: 'basic',
         title: 'Starter',
-        subtitle: 'Static pages, ≤ 10 pages — portfolios & small sites',
-        price: 'from $500',
+        subtitle: 'Ideal for portfolios, landing pages, and small brochure sites (up to 10 pages).',
+        price: 'Starting at $500',
         features: [
             'Up to 10 pages',
-            'Responsive layout',
-            'Basic SEO & analytics',
-            'Simple contact form'
+            'Responsive design',
+            'Basic SEO and analytics setup',
+            'Contact form integration'
         ],
-        ctaText: 'Order Starter',
+        ctaText: 'Choose Starter',
         ctaHref: '/contact'
     },
     {
         id: 'advanced',
         title: 'Growth',
-        subtitle: 'Advanced sites, > 10 pages — startups & e-commerce',
-        price: 'from $1000',
+        subtitle: 'Full-featured sites for startups and small businesses — e‑commerce and dynamic content.',
+        price: 'Starting at $1,000',
         features: [
             'Unlimited pages',
-            'CMS integration',
-            'E-commerce or product catalog support',
-            'Performance & caching setup'
+            'CMS or headless-CMS integration',
+            'E‑commerce or product catalog support',
+            'Performance optimizations and caching'
         ],
-        ctaText: 'Order Growth',
+        ctaText: 'Choose Growth',
         ctaHref: '/contact',
         highlight: true
     },
     {
         id: 'custom',
         title: 'Custom',
-        subtitle: 'Full custom solutions — apps, integrations, enterprise',
+        subtitle: 'Bespoke web applications, integrations, or enterprise solutions tailored to your needs.',
         price: 'Custom pricing',
         features: [
-            'Bespoke architecture',
-            'Third-party integrations',
-            'SLA & support options',
-            'Dedicated project onboarding'
+            'Custom architecture and design',
+            'Third‑party integrations',
+            'SLA and support plans',
+            'Dedicated onboarding and project kickoff'
         ],
-        ctaText: 'Contact Sales',
+        ctaText: 'Request a Proposal',
         ctaHref: '/contact'
     }
 ]
@@ -69,10 +69,10 @@ export default function Packages() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-16 space-y-4">
                     <h2 id="packages-title" className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                        Transparent Pricing
+                        Clear, predictable pricing
                     </h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-                        Choose a package that fits your needs. Prices shown are starting rates (USD).
+                        Select the package that best matches your project. Listed prices are starting estimates (USD); final quotes depend on scope, integrations, and service level needs.
                     </p>
                 </div>
 
@@ -84,7 +84,7 @@ export default function Packages() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
-                            className={`flex flex-col relative group rounded-2xl p- p-[1px] ${t.highlight
+                            className={`flex flex-col relative group rounded-2xl p-[1px] ${t.highlight
                                 ? 'bg-gradient-to-b from-blue-500/50 to-purple-600/50'
                                 : 'bg-slate-800'
                                 }`}
@@ -100,7 +100,7 @@ export default function Packages() {
                                         </h3>
                                         {t.highlight && (
                                             <span className="px-3 py-1 text-xs font-semibold text-blue-200 bg-blue-900/40 rounded-full border border-blue-800">
-                                                Popular
+                                                Most popular
                                             </span>
                                         )}
                                     </div>
@@ -142,7 +142,7 @@ export default function Packages() {
 
                 <div className="mt-12 text-center">
                     <p className="text-sm text-slate-500">
-                        Prices listed are starting rates. Final quotes depend on scope, integrations, and SLAs.
+                        The prices above are indicative. For a detailed proposal and firm quote, please contact us with your project requirements.
                     </p>
                 </div>
             </div>
