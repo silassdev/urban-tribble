@@ -47,7 +47,6 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Middle: nav (desktop) */}
           <nav className="hidden md:flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
               <Link
@@ -61,7 +60,6 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right: actions */}
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-4">
               {session && (
@@ -93,7 +91,6 @@ export default function Header() {
               )}
             </div>
 
-            {/* Mobile menu toggle */}
             <button
               className="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -125,9 +122,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-
-
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div

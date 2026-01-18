@@ -3,7 +3,6 @@ export default function Marquee() {
         'React', 'Next.js', 'Tailwind', 'Laravel', 'PHP', 'MySQL', 'TypeScript', 'Node', 'Express'
     ]
 
-    // Split the long string into logical items as requested
     const row2 = [
         'Cloud: AWS / GCP / DigitalOcean',
         'CI/CD • IaC • Docker • Kubernetes',
@@ -22,7 +21,6 @@ export default function Marquee() {
                         </span>
                     ))}
                 </div>
-                {/* Duplicate must be in the same flow for standard -100% marquee */}
                 <div className="flex shrink-0 animate-banner-scroll-left items-center gap-12 min-w-full pl-12 group-hover:[animation-play-state:paused]">
                     {row1.map((t, i) => (
                         <span key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-slate-400 whitespace-nowrap">
@@ -33,7 +31,6 @@ export default function Marquee() {
                 </div>
             </div>
 
-            {/* Row 2 - Scroll Right */}
             <div className="flex overflow-hidden relative w-full group">
                 <div className="flex shrink-0 animate-banner-scroll-right items-center gap-12 min-w-full pl-12 group-hover:[animation-play-state:paused]">
                     {row2.map((t, i) => (

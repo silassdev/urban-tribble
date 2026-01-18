@@ -6,9 +6,9 @@ import SessionProvider from './components/SessionProvider';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
-  title: 'Allpilar',
+  title: 'Allpilar | Premium Web Solutions',
   description:
-    'Allpilar — All IT & Web Solution',
+    'Allpilar delivers high-performance web applications, bespoke software architecture, and cutting-edge digital solutions for modern businesses.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,26 +25,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </main>
 
-            <footer className="mt-12 py-8 glass border-t-0">
-              <div className="container">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-gray-800 pb-8">
-                  <div className="space-y-4">
-                    <div className="font-black text-2xl tracking-tighter">Allpilar<span className="text-brand-primary">.</span></div>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
-                      Compare developer profiles, visualize strengths, and discover the community leaderboard.
+            <footer className="mt-12 py-12 bg-[#0d1117]/50 border-t border-slate-800 backdrop-blur-md">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-slate-800 pb-12">
+                  <div className="col-span-1 md:col-span-2 space-y-6">
+                    <div className="font-black text-2xl tracking-tighter text-white">
+                      Allpilar<span className="text-blue-500">.</span>
+                    </div>
+                    <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+                      We craft high-end digital experiences, from sophisticated web architectures to powerful AI integrations. Your partner in scalable technology.
                     </p>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="font-bold text-sm uppercase tracking-widest text-brand-primary">Platform</h4>
-                    <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <h4 className="font-bold text-xs uppercase tracking-widest text-slate-200">Solutions</h4>
+                    <ul className="space-y-3 text-sm text-slate-400">
                       <li>
-                        <Link href="/leaderboard" className="hover:text-brand-dark dark:hover:text-white transition-standard">
-                          Leaderboard
+                        <Link href="/#pricing" className="hover:text-blue-400 transition-colors">
+                          Pricing
                         </Link>
                       </li>
                       <li>
-                        <Link href="/contact" className="hover:text-brand-dark dark:hover:text-white transition-standard">
+                        <Link href="/about" className="hover:text-blue-400 transition-colors">
+                          About Us
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/contact" className="hover:text-blue-400 transition-colors">
                           Contact
                         </Link>
                       </li>
@@ -52,11 +59,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="font-bold text-sm uppercase tracking-widest text-brand-primary">Connect</h4>
-                    <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <h4 className="font-bold text-xs uppercase tracking-widest text-slate-200">Legal</h4>
+                    <ul className="space-y-3 text-sm text-slate-400">
                       <li>
-                        <Link href="https://github.com/your-username/gitbattle" className="hover:text-brand-dark dark:hover:text-white transition-standard">
-                          GitHub
+                        <Link href="/privacy" className="hover:text-blue-400 transition-colors">
+                          Privacy Policy
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/terms" className="hover:text-blue-400 transition-colors">
+                          Terms of Service
                         </Link>
                       </li>
                     </ul>
@@ -64,11 +76,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 gap-4">
-                  <div className="text-xs text-gray-400">© {new Date().getFullYear()} Allpilar. All rights reserved.</div>
+                  <div className="text-xs text-slate-500">
+                    © {new Date().getFullYear()} Allpilar Web Solutions. All rights reserved.
+                  </div>
 
-                  <div className="flex gap-6 text-xs text-gray-400 font-bold uppercase tracking-tighter">
-                    <Link href="/privacy" className="hover:text-brand-dark dark:hover:text-white">Privacy</Link>
-                    <Link href="/terms" className="hover:text-brand-dark dark:hover:text-white">Terms</Link>
+                  <div className="flex gap-6">
+                    {/* Social icons could go here */}
                   </div>
                 </div>
               </div>

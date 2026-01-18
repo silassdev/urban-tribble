@@ -1,74 +1,72 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+
+export const metadata = {
+    title: 'About Allpilar – Premium Web Solutions',
+    description: 'Discover Allpilar’s mission, expertise, and the team delivering high‑performance web applications, AI integrations, and scalable digital solutions.',
+};
 
 export default function AboutPage() {
     return (
-        <div className="container py-20">
+        <section className="min-h-screen bg-[#0d1117] text-slate-100 flex flex-col items-center justify-center py-20 px-4">
+            {/* Hero */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-3xl mx-auto text-center mb-24"
+                transition={{ duration: 0.6 }}
+                className="max-w-4xl text-center space-y-6"
             >
-                <h1 className="text-5xl md:text-7xl font-black text-brand-dark dark:text-white leading-tight tracking-tight mb-8">
-                    Defining the <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-blue-400">Future of Tech.</span>
+                <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                    Crafting Digital Excellence
                 </h1>
-                <p className="text-xl text-gray-500 dark:text-gray-400 leading-relaxed">
-                    At ECOM, we believe that high-performance hardware should be accessible to every professional. We curate only the precision-engineered components that pass our rigorous standards.
+                <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">
+                    At Allpilar we blend cutting‑edge technology with meticulous design to deliver solutions that scale, perform, and impress. From bespoke web architectures to AI‑driven platforms, we turn complex challenges into elegant products.
                 </p>
+                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+                    <Link
+                        href="/#pricing"
+                        className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors"
+                    >
+                        Explore Pricing
+                    </Link>
+                    <Link
+                        href="/contact"
+                        className="inline-flex items-center justify-center px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg font-medium transition-colors"
+                    >
+                        Get In Touch
+                    </Link>
+                </div>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-                {[
-                    { title: 'Performance', desc: 'Every component is tested for maximum reliability and speed.', icon: '⚡' },
-                    { title: 'Curation', desc: 'We only stock gear that we use and love ourselves.', icon: '💎' },
-                    { title: 'Support', desc: 'Expert technical assistance for every build you dream of.', icon: '🛠️' },
-                ].map((item, idx) => (
-                    <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="glass p-10 rounded-[2.5rem] border-brand-primary/10 hover:shadow-xl transition-standard"
-                    >
-                        <div className="text-4xl mb-6">{item.icon}</div>
-                        <h3 className="text-2xl font-bold text-brand-dark dark:text-white mb-4">{item.title}</h3>
-                        <p className="text-gray-500 dark:text-gray-400 leading-relaxed">{item.desc}</p>
-                    </motion.div>
-                ))}
-            </div>
-
-            <section className="relative overflow-hidden rounded-[3rem] bg-brand-dark dark:bg-brand-primary/10 p-12 md:p-20 text-white">
-                <div className="absolute top-0 right-0 -z-10 w-full h-full bg-gradient-to-br from-brand-primary/20 to-transparent"></div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
-                        <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                            Founded in 2024, ECOM started as a small community of enthusiasts. Today, we're a leading provider of premium hardware, dedicated to empowering creators and professionals worldwide.
-                        </p>
-                        <div className="flex gap-8">
-                            <div>
-                                <div className="text-3xl font-black text-brand-primary">10K+</div>
-                                <div className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Customers</div>
-                            </div>
-                            <div>
-                                <div className="text-3xl font-black text-brand-primary">500+</div>
-                                <div className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Products</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="relative aspect-video rounded-3xl overflow-hidden glass border-white/10 shadow-2xl">
-                        <img
-                            src="/images/starter_pack.png"
-                            alt="The Workspace"
-                            className="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-standard cursor-pointer"
-                        />
-                    </div>
+            {/* Features */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="mt-16 grid gap-8 md:grid-cols-3 max-w-6xl"
+            >
+                <div className="p-6 bg-[#0d1117]/50 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors">
+                    <h3 className="text-xl font-semibold text-blue-400 mb-2">Scalable Architecture</h3>
+                    <p className="text-sm text-slate-400">
+                        Build applications that grow with your business, leveraging micro‑services, serverless, and cloud‑native patterns.
+                    </p>
                 </div>
-            </section>
-        </div>
+                <div className="p-6 bg-[#0d1117]/50 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors">
+                    <h3 className="text-xl font-semibold text-blue-400 mb-2">AI & Data Integration</h3>
+                    <p className="text-sm text-slate-400">
+                        Harness the power of machine learning, embeddings, and intelligent pipelines to unlock new capabilities.
+                    </p>
+                </div>
+                <div className="p-6 bg-[#0d1117]/50 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors">
+                    <h3 className="text-xl font-semibold text-blue-400 mb-2">Premium Support</h3>
+                    <p className="text-sm text-slate-400">
+                        Dedicated onboarding, SLA‑backed support, and continuous monitoring for mission‑critical projects.
+                    </p>
+                </div>
+            </motion.div>
+        </section>
     );
 }
+

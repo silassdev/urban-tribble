@@ -24,7 +24,6 @@ export default function Hero() {
 
     return (
         <section className="pt-20 pb-12 lg:pt-32 lg:pb-20 relative overflow-hidden">
-            {/* Background Effects */}
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[500px] h-[500px] bg-sky-500/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
 
@@ -68,10 +67,10 @@ export default function Hero() {
                                 <FiArrowRight className="ml-2 w-5 h-5" />
                             </Link>
                             <Link
-                                href="/leaderboard"
+                                href="/#pricing"
                                 className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-300 bg-slate-800/50 border border-slate-700 rounded-lg hover:bg-slate-800 hover:text-white transition-all backdrop-blur-sm"
                             >
-                                View Leaderboard
+                                Our Pricing
                             </Link>
                         </div>
 
@@ -102,10 +101,8 @@ export default function Hero() {
                         <div className="relative aspect-square md:aspect-video lg:aspect-square rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/50 backdrop-blur-sm shadow-2xl">
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent" />
 
-                            {/* Decorative Grid */}
                             <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
-                            {/* Abstract Graphic */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="relative w-64 h-64">
                                     <div className="absolute inset-0 bg-gradient-to-tr from-sky-500 to-purple-600 rounded-full blur-3xl opacity-20 animate-pulse" />
