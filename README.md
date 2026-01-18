@@ -1,4 +1,4 @@
-# 🛡️ AllPilar INC
+# AllPilar Web Solutions
 
 ## Tech Stack
 
@@ -11,9 +11,6 @@
 | ORM                | Mongoose                |
 | Authentication     | Auth.js                 |
 | Data Visualization | Recharts                |
-
----
-
 ## Architecture
 
 Allpilar follows a **Backend-for-Frontend (BFF)** architecture.
@@ -41,25 +38,3 @@ Allpilar was built with a strong focus on professional engineering standards:
 
 * **User Experience**
   Fully responsive interface with accessible UI components, meaningful loading states, and clear data presentation.
-
-## Getting Started
-
-1.  **Clone the repository**
-2.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-3.  **Set up environment variables**:
-    Create a `.env` file with the following:
-    ```env
-    MONGODB_URI=...
-    GOOGLE_CLIENT_ID=...
-    GOOGLE_CLIENT_SECRET=...
-    NEXTAUTH_SECRET=...
-    NEXTAUTH_URL=http://localhost:3000
-    ```
-4.  **Run the development server**:
-    ```bash
-    npm run dev
-    ```
-

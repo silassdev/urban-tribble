@@ -6,9 +6,9 @@ import SessionProvider from './components/SessionProvider';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
-  title: 'AllPilar — All IT & Web Solution',
+  title: 'Allpilar',
   description:
-    'GitBattle — compare GitHub profiles with weighted scoring, visualizations, and a global leaderboard.',
+    'Allpilar — All IT & Web Solution',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen font-sans antialiased text-gray-100 overflow-x-hidden transition-colors duration-300 bg-[#0d1117]">
         <SessionProvider>
-          {/* <ThemeProvider> */}
+
           <Toaster position="top-right" />
           <div className="flex flex-col min-h-screen">
             <Header />
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="container">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-gray-100 dark:border-gray-800 pb-12">
                   <div className="space-y-4">
-                    <div className="font-black text-2xl tracking-tighter">GitBattle<span className="text-brand-primary">.</span></div>
+                    <div className="font-black text-2xl tracking-tighter">Allpilar<span className="text-brand-primary">.</span></div>
                     <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
                       Compare developer profiles, visualize strengths, and discover the community leaderboard.
                     </p>
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-between items-center pt-8 gap-4">
-                  <div className="text-xs text-gray-400">© {new Date().getFullYear()} GitBattle. All rights reserved.</div>
+                  <div className="text-xs text-gray-400">© {new Date().getFullYear()} Allpilar. All rights reserved.</div>
 
                   <div className="flex gap-6 text-xs text-gray-400 font-bold uppercase tracking-tighter">
                     <Link href="/privacy" className="hover:text-brand-dark dark:hover:text-white">Privacy</Link>
@@ -74,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </footer>
           </div>
-          {/* </ThemeProvider> */}
+
         </SessionProvider>
       </body>
     </html>
