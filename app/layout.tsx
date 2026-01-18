@@ -25,9 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </main>
 
-            <footer className="mt-20 py-12 glass border-t-0">
+            <footer className="mt-12 py-8 glass border-t-0">
               <div className="container">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-gray-100 dark:border-gray-800 pb-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-gray-800 pb-8">
                   <div className="space-y-4">
                     <div className="font-black text-2xl tracking-tighter">Allpilar<span className="text-brand-primary">.</span></div>
                     <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs">

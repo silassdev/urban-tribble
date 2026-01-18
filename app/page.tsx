@@ -7,7 +7,7 @@ import SVGDrawing from '@/app/components/SVGDrawing'
 
 export default function Page() {
   return (
-    <main className="space-y-24 py-16">
+    <main className="space-y-12 py-12">
       <header className="space-y-8">
         <Hero />
         <Marquee />

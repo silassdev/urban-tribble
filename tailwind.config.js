@@ -7,9 +7,13 @@ module.exports = {
     theme: {
         extend: {
             keyframes: {
-                marquee: {
+                'banner-scroll-left': {
                     '0%': { transform: 'translateX(0)' },
-                    '100%': { transform: 'translateX(-50%)' }
+                    '100%': { transform: 'translateX(-100%)' }
+                },
+                'banner-scroll-right': {
+                    '0%': { transform: 'translateX(-100%)' },
+                    '100%': { transform: 'translateX(0)' }
                 },
                 floatLR: {
                     '0%': { transform: 'translateX(0)' },
@@ -23,7 +27,8 @@ module.exports = {
                 }
             },
             animation: {
-                marquee: 'marquee 18s linear infinite',
+                'banner-scroll-left': 'banner-scroll-left 25s linear infinite',
+                'banner-scroll-right': 'banner-scroll-right 25s linear infinite',
                 floatLR: 'floatLR 6s ease-in-out infinite',
                 floatRL: 'floatRL 6s ease-in-out infinite'
             }

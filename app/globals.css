@@ -28,7 +28,32 @@ body {
 }
 
 /* ensure marquee repeats */
-.marquee-track>* {
-  display: inline-block;
-  padding: 0 2rem;
+
+/* Standard CSS Marquee Animation */
+@keyframes banner-scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes banner-scroll-right {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-banner-scroll-left {
+  animation: banner-scroll-left 25s linear infinite;
+}
+
+.animate-banner-scroll-right {
+  animation: banner-scroll-right 25s linear infinite;
 }

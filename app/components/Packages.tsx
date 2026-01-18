@@ -18,7 +18,7 @@ const TIERS: Tier[] = [
         id: 'basic',
         title: 'Starter',
         subtitle: 'Static pages, ≤ 10 pages — portfolios & small sites',
-        price: '$500 up',
+        price: 'from $500',
         features: [
             'Up to 10 pages',
             'Responsive layout',
@@ -32,7 +32,7 @@ const TIERS: Tier[] = [
         id: 'advanced',
         title: 'Growth',
         subtitle: 'Advanced sites, > 10 pages — startups & e-commerce',
-        price: '$1000 up',
+        price: 'from $1000',
         features: [
             'Unlimited pages',
             'CMS integration',
@@ -61,7 +61,7 @@ const TIERS: Tier[] = [
 
 export default function Packages() {
     return (
-        <section aria-labelledby="packages-title" className="py-20 bg-[#0d1117] relative overflow-hidden">
+        <section id="pricing" aria-labelledby="packages-title" className="py-20 bg-[#0d1117] relative overflow-hidden">
             {/* Background glow effects */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none" />
