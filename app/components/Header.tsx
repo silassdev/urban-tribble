@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiGithub, FiUser, FiLogOut } from 'react-icons/fi';
-import ThemeToggle from './ThemeToggle';
+// import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   const { data: session } = useSession();
@@ -63,7 +63,7 @@ export default function Header() {
           {/* Right: actions */}
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-3">
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
 
               {session ? (
                 <div className="flex items-center gap-3">
@@ -173,7 +173,7 @@ export default function Header() {
                     )}
 
                     <div className="mt-2 border-t border-slate-200 dark:border-slate-800 pt-3">
-                      <ThemeToggle />
+                      {/* <ThemeToggle /> */}
                     </div>
                   </nav>
                 </div>

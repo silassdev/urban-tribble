@@ -99,13 +99,8 @@ export default function Packages() {
 
                             <div className="mt-6">
                                 {t.ctaHref ? (
-                                    <Link href={t.ctaHref}>
-                                        <a
-                                            className={`inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium rounded-md ${t.highlight ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
-                                                }`}
-                                        >
-                                            {t.ctaText}
-                                        </a>
+                                    <Link href={t.ctaHref} className={`inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium rounded-md ${t.highlight ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}>
+                                        {t.ctaText}
                                     </Link>
                                 ) : (
                                     <button
