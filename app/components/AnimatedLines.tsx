@@ -1,46 +1,74 @@
+'use client';
+import { motion } from 'framer-motion';
+
 export default function AnimatedLines() {
-    const leftText = 'We speak your stack — multiple options'
-    const rightText = 'Design, DevOps, AI, Cloud, Architecture'
+    const leftText = 'We speak your stack — multiple options';
+    const rightText = 'Design, DevOps, AI, Cloud, Architecture';
 
     return (
-        <div className="relative py-20 overflow-hidden">
-            {/* Background glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+        <section className="relative py-20 overflow-hidden">
+            {/* Soft glowing backdrop */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl" />
+            </div>
 
-            <div className="grid grid-cols-1 gap-8 relative z-10">
-                <div className="relative overflow-visible">
-                    <div className="bg-gradient-to-r from-slate-900 to-[#0d1117] p-8 rounded-2xl border border-slate-800 shadow-2xl">
-                        <div className="flex items-center">
-                            <div className="flex-1">
-                                <div className="text-xs font-mono text-sky-500 mb-2">01 — float.right</div>
-                                <div className="text-xl md:text-2xl font-bold text-slate-200 animate-floatLR">{rightText}</div>
-                            </div>
+            {/* Main content */}
+            <div className="relative z-10 max-w-5xl mx-auto grid gap-12">
+                {/* Animated text rows */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="bg-[#0d1117]/60 backdrop-blur-md border border-slate-800 rounded-2xl p-8"
+                >
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                        {/* Right‑side floating text */}
+                        <div className="flex-1 text-center md:text-left">
+                            <p className="text-xs font-mono text-sky-500 mb-2">01 — float.right</p>
+                            <h2 className="text-xl md:text-2xl font-bold text-slate-200 animate-floatLR">
+                                {rightText}
+                            </h2>
+                        </div>
 
-                            <div className="w-px h-20 bg-gradient-to-b from-transparent via-slate-700 to-transparent mx-8 md:mx-12" />
+                        {/* Divider */}
+                        <div className="w-px h-16 bg-gradient-to-b from-transparent via-slate-700 to-transparent" />
 
-                            <div className="flex-1 text-right">
-                                <div className="text-xs font-mono text-purple-500 mb-2">02 — float.left</div>
-                                <div className="text-xl md:text-2xl font-bold text-slate-200 animate-floatRL">{leftText}</div>
-                            </div>
+                        {/* Left‑side floating text */}
+                        <div className="flex-1 text-center md:text-right">
+                            <p className="text-xs font-mono text-purple-500 mb-2">02 — float.left</p>
+                            <h2 className="text-xl md:text-2xl font-bold text-slate-200 animate-floatRL">
+                                {leftText}
+                            </h2>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
+                {/* Feature cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="rounded-xl p-8 border border-slate-800 bg-[#0d1117]/80 hover:bg-slate-800/30 transition-colors">
-                        <h3 className="text-base font-bold text-white mb-2">Custom stacks</h3>
+                    <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        className="rounded-xl border border-slate-800 bg-[#0d1117]/80 hover:bg-slate-800/30 transition-colors p-8"
+                    >
+                        <h3 className="text-base font-bold text-white mb-2">Custom Stacks</h3>
                         <p className="text-sm text-slate-400 leading-relaxed">
-                            Mix-and-match stacks per project. We deploy TypeScript-first APIs or PHP microservices depending on constraints.
+                            Mix‑and‑match stacks per project. Deploy TypeScript‑first APIs or PHP
+                            micro‑services depending on constraints.
                         </p>
-                    </div>
-                    <div className="rounded-xl p-8 border border-slate-800 bg-[#0d1117]/80 hover:bg-slate-800/30 transition-colors">
+                    </motion.div>
+
+                    <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        className="rounded-xl border border-slate-800 bg-[#0d1117]/80 hover:bg-slate-800/30 transition-colors p-8"
+                    >
                         <h3 className="text-base font-bold text-white mb-2">Performance</h3>
                         <p className="text-sm text-slate-400 leading-relaxed">
-                            Memory optimization, server-side rendering strategies, and edge caching patterns included by default.
+                            Memory optimisation, server‑side rendering strategies, and edge‑caching
+                            patterns included by default.
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </div>
-    )
+        </section>
+    );
 }

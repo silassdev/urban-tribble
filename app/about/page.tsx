@@ -1,12 +1,6 @@
 'use client';
-import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-
-export const metadata = {
-    title: 'About Allpilar – Premium Web Solutions',
-    description: 'Discover Allpilar’s mission, expertise, and the team delivering high‑performance web applications, AI integrations, and scalable digital solutions.',
-};
 
 export default function AboutPage() {
     return (
