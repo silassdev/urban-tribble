@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Link from 'next/link';
 import SessionProvider from './components/SessionProvider';
 import { Toaster } from 'react-hot-toast';
+import { FiTwitter, FiLinkedin, FiMail } from 'react-icons/fi';
 
 export const metadata = {
   title: 'Allpilar | Premium Web Solutions',
@@ -107,8 +108,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     © {new Date().getFullYear()} Allpilar Web Solutions. All rights reserved.
                   </div>
 
-                  <div className="flex gap-6">
-                    {/* Social icons could go here */}
+                  <div className="flex gap-3">
+
+                    <a
+                      href="https://twitter.com/allpilar"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Allpilar on Twitter"
+                      className="p-2 rounded-md hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    >
+                      <FiTwitter className="w-5 h-5 text-slate-200" />
+                      <span className="sr-only">Twitter</span>
+                    </a>
+
+                    <a
+                      href="https://www.linkedin.com/company/allpilarsolution"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Allpilar on LinkedIn"
+                      className="p-2 rounded-md hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    >
+                      <FiLinkedin className="w-5 h-5 text-slate-200" />
+                      <span className="sr-only">LinkedIn</span>
+                    </a>
+
+                    <a
+                      href="mailto:allpilarsolution@gmail.com"
+                      aria-label="Email Allpilar"
+                      className="p-2 rounded-md hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    >
+                      <FiMail className="w-5 h-5 text-slate-200" />
+                      <span className="sr-only">Email</span>
+                    </a>
                   </div>
                 </div>
               </div>
