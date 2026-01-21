@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, User, LogOut } from 'lucide-react';
 
@@ -26,10 +27,8 @@ export default function Header() {
 
   const pathname = usePathname();
 
-  // Define routes where the header SHOULD be visible
   const MAIN_SITE_ROUTES = ['/', '/about', '/contact', '/privacy', '/terms', '/login'];
 
-  // Hide header if on admin route OR if the route is not in the main site whitelist (404)
   const isHidden = pathname.startsWith('/admin') || !MAIN_SITE_ROUTES.includes(pathname);
 
   if (isHidden) return null;
@@ -43,10 +42,15 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Left: Brand */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 text-white group-hover:bg-white/10 transition-colors">
-              <Github className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 border border-black/10 text-white group-hover:bg-white/10 transition-colors">
+              <Image
+                src="/allpilar.png"
+                alt="Allpilar logo"
+                width={100}
+                height={100}
+                className="object-contain"
+              />
             </div>
             <div>
               <span className="font-bold text-xl tracking-tight text-white block leading-none">
