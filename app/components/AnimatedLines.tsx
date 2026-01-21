@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 export default function AnimatedLines() {
     return (
         <section className="relative py-24 overflow-hidden bg-[#0d1117]">
-            {/* Animated gradient orbs */}
             <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
             <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
 

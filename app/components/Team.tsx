@@ -2,35 +2,74 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiGithub, FiMail, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { FiGithub, FiMail, FiChevronLeft, FiChevronRight, FiLinkedin } from 'react-icons/fi'
 import Image from 'next/image'
 
 const team = [
     {
-        name: 'Silas',
-        title: 'Founder & Software Engineer',
+        name: 'Okon Peter',
+        title: 'Co Founder',
         photo: '/dummy.png',
-        github: 'https://github.com/silas',
-        email: 'silas@allpilar.xyz',
-        bio: 'Lead architect and visionary behind AllPilar Solutions, specializing in robust scalable architectures.'
+        email: 'allpilarsolutions@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/okonpeter',
+        bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
     },
     {
-        name: 'Sarah Chen',
+        name: 'Singh Priya',
         title: 'Project Manager',
         photo: '/dummy.png',
         github: 'https://github.com/sarah',
-        email: 'sarah@allpilar.xyz',
-        bio: 'Expert in agile methodologies and client relations, ensuring every project is delivered with excellence.'
+        email: 'allpilarsolutions@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/singhpriya',
+        bio: 'Project manager driving Agile delivery: roadmaps, stakeholder alignment, sprints, and on-time, on-budget launches.'
     },
     {
-        name: 'Marcus Thorne',
-        title: 'Senior Developer',
+        name: 'Aisha Bello',
+        title: 'DevOps Engineer',
         photo: '/dummy.png',
-        github: 'https://github.com/marcus',
-        email: 'marcus@allpilar.xyz',
-        bio: 'Deep systems expert with 10+ years of experience in backend optimization and security.'
+        github: 'https://github.com/aishabello',
+        email: 'allpilarsolutions@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/aishabello',
+        bio: 'DevOps engineer building reliable CI/CD pipelines, cloud infrastructure, monitoring, and automated deployment workflows.'
+    },
+    {
+        name: 'Nathaniel Juan',
+        title: 'Software Engineer',
+        photo: '/dummy.png',
+        github: 'https://github.com/nathanjuan',
+        email: 'allpilarsolutions@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/nathanjuan',
+        bio: 'Software engineer focused on reliable APIs, system design, performance optimization, and test-driven development.'
+    },
+    {
+        name: 'Jose Rizal',
+        title: 'Backend Engineer',
+        photo: '/dummy.png',
+        github: 'https://github.com/joserizal',
+        email: 'allpilarsolutions@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/joserizal',
+        bio: 'Backend engineer specializing in scalable APIs, data modeling, performance tuning, and secure server-side systems.'
+    },
+    {
+        name: 'Silas Tyokaha',
+        title: 'Software Developer',
+        photo: '/dummy.png',
+        github: 'https://github.com/silassdev',
+        email: '9shila@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/silassdev',
+        bio: 'Full-stack developer building production-ready web apps with React, Next.js, and pragmatic, maintainable tooling.'
+    },
+    {
+        name: 'Khari Reyansh',
+        title: 'Frontend Developer',
+        photo: '/dummy.png',
+        github: 'https://github.com/khari',
+        email: 'allpilarsolution@gmail.com',
+        linkedin: 'https://www.linkedin.com/in/khari',
+        bio: 'Frontend developer crafting accessible, responsive UIs and reusable component systems for fast user experiences.'
     }
-]
+];
+
 
 export default function Team() {
     const [index, setIndex] = useState(0)
@@ -40,7 +79,6 @@ export default function Team() {
 
     return (
         <section className="py-24 relative overflow-hidden">
-            {/* Background decoration */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="container mx-auto px-6 relative z-10">
@@ -87,7 +125,6 @@ export default function Team() {
                                 </motion.div>
                             </AnimatePresence>
 
-                            {/* Navigation overlays for mobile */}
                             <div className="absolute inset-y-0 left-0 w-1/4 md:hidden pointer-events-auto cursor-pointer" onClick={prev} />
                             <div className="absolute inset-y-0 right-0 w-1/4 md:hidden pointer-events-auto cursor-pointer" onClick={next} />
                         </div>
@@ -126,6 +163,14 @@ export default function Team() {
                                             className="text-slate-400 hover:text-white transition-colors"
                                         >
                                             <FiMail size={28} />
+                                        </a>
+                                        <a
+                                            href={team[index].linkedin}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-slate-400 hover:text-white transition-colors"
+                                        >
+                                            <FiLinkedin size={28} />
                                         </a>
                                     </div>
                                 </motion.div>
