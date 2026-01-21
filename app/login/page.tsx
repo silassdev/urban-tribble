@@ -50,7 +50,6 @@ export default function LoginPage() {
                         >
                             Welcome to{" "}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400">
-                                Allpilar Solution
                             </span>
                         </motion.h1>
 
