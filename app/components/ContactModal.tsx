@@ -13,6 +13,7 @@ type Contact = {
     anonymous?: boolean
     resolved?: boolean
     country?: string
+    contactInfo?: string
     createdAt: string
 }
 
@@ -74,6 +75,15 @@ export default function ContactModal({ contact, onClose, onResolve }: Props) {
                             <p className="text-white">{contact.preferredContact || '—'}</p>
                         </div>
 
+                        {contact.contactInfo && (
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-semibold text-slate-400 mb-1">Contact Details</label>
+                                <p className="text-blue-400 font-medium bg-blue-500/5 p-3 rounded-xl border border-blue-500/10 inline-block w-full">
+                                    {contact.contactInfo}
+                                </p>
+                            </div>
+                        )}
+
                         <div className="md:col-span-2">
                             <label className="block text-sm font-semibold text-slate-400 mb-1">Subject</label>
                             <p className="text-white">{contact.subject || '—'}</p>
@@ -113,8 +123,8 @@ export default function ContactModal({ contact, onClose, onResolve }: Props) {
                             onClose()
                         }}
                         className={`px-6 py-2 rounded-lg font-semibold transition ${contact.resolved
-                                ? 'bg-slate-700 text-white hover:bg-slate-600'
-                                : 'bg-green-600 text-white hover:bg-green-700'
+                            ? 'bg-slate-700 text-white hover:bg-slate-600'
+                            : 'bg-green-600 text-white hover:bg-green-700'
                             }`}
                     >
                         {contact.resolved ? 'Mark as Unresolved' : 'Mark as Resolved'}

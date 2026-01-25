@@ -18,7 +18,7 @@ const TIERS: Tier[] = [
         id: 'basic',
         title: 'Starter',
         subtitle: 'Ideal for portfolios, landing pages, and small brochure sites (up to 10 pages).',
-        price: 'Starting at $500',
+        price: 'From $500',
         features: [
             'Up to 10 pages',
             'Responsive design',
@@ -26,13 +26,13 @@ const TIERS: Tier[] = [
             'Contact form integration'
         ],
         ctaText: 'Choose Starter',
-        ctaHref: '/contact'
+        ctaHref: '/contact?package=starter'
     },
     {
         id: 'advanced',
         title: 'Growth',
         subtitle: 'Full-featured sites for startups and small businesses — e‑commerce and dynamic content.',
-        price: 'Starting at $1,000',
+        price: 'From $1,000',
         features: [
             'Unlimited pages',
             'CMS or headless-CMS integration',
@@ -40,14 +40,14 @@ const TIERS: Tier[] = [
             'Performance optimizations and caching'
         ],
         ctaText: 'Choose Growth',
-        ctaHref: '/contact',
+        ctaHref: '/contact?package=growth',
         highlight: true
     },
     {
         id: 'custom',
         title: 'Custom',
         subtitle: 'Bespoke web applications, integrations, or enterprise solutions tailored to your needs.',
-        price: 'Custom pricing',
+        price: 'Bespoke Quote',
         features: [
             'Custom architecture and design',
             'Third‑party integrations',
@@ -55,7 +55,7 @@ const TIERS: Tier[] = [
             'Dedicated onboarding and project kickoff'
         ],
         ctaText: 'Request a Proposal',
-        ctaHref: '/contact'
+        ctaHref: '/contact?package=custom'
     }
 ]
 

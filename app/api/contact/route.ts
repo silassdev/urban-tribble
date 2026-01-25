@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         await connectDB()
 
         const body = await request.json()
-        const { email, preferredContact, subject, description, message, anonymous, clientCountry, clientIp } = body
+        const { email, preferredContact, contactInfo, subject, description, message, anonymous, clientCountry, clientIp } = body
 
         const finalSubject = subject || 'Contact Form'
         const finalDescription = description || message || ''
@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
         const contact = await Contact.create({
             email: anonymous ? undefined : email,
             preferredContact,
+            contactInfo,
             subject: finalSubject,
             description: finalDescription,
             ip,
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
         <ul>
             <li><strong>Email:</strong> ${email || '(Anonymous)'}</li>
             <li><strong>Preferred Contact:</strong> ${preferredContact || '—'}</li>
+            <li><strong>Contact Info:</strong> ${contactInfo || '—'}</li>
             <li><strong>Subject:</strong> ${finalSubject || '—'}</li>
             <li><strong>Description:</strong> ${finalDescription ? finalDescription.replace(/</g, '&lt;') : '—'}</li>
             <li><strong>Location:</strong> ${country || 'Unknown'}</li>

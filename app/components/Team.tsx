@@ -1,23 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiGithub, FiMail, FiChevronLeft, FiChevronRight, FiLinkedin } from 'react-icons/fi'
+import { FiGithub, FiMail, FiChevronLeft, FiChevronRight, FiLinkedin, FiExternalLink } from 'react-icons/fi'
 import Image from 'next/image'
 
 const team = [
     {
-        name: 'Okon Peter',
+        name: 'Silas Tyokaha',
         title: 'Co Founder',
-        photo: '/dummy.png',
+        photo: '/silas.png',
         email: 'allpilarsolutions@gmail.com',
         linkedin: 'https://www.linkedin.com/in/okonpeter',
+        website: 'https://silas.allpilar.xyz',
         bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
     },
     {
         name: 'Singh Priya',
         title: 'Project Manager',
-        photo: '/dummy.png',
+        photo: '/priya.png',
         github: 'https://github.com/sarah',
         email: 'allpilarsolutions@gmail.com',
         linkedin: 'https://www.linkedin.com/in/singhpriya',
@@ -26,7 +27,7 @@ const team = [
     {
         name: 'Aisha Bello',
         title: 'DevOps Engineer',
-        photo: '/dummy.png',
+        photo: '/aisha.png',
         github: 'https://github.com/aishabello',
         email: 'allpilarsolutions@gmail.com',
         linkedin: 'https://www.linkedin.com/in/aishabello',
@@ -35,7 +36,7 @@ const team = [
     {
         name: 'Nathaniel Juan',
         title: 'Software Engineer',
-        photo: '/dummy.png',
+        photo: '/nathaniel.png',
         github: 'https://github.com/nathanjuan',
         email: 'allpilarsolutions@gmail.com',
         linkedin: 'https://www.linkedin.com/in/nathanjuan',
@@ -44,25 +45,16 @@ const team = [
     {
         name: 'Jose Rizal',
         title: 'Backend Engineer',
-        photo: '/dummy.png',
+        photo: '/jose.png',
         github: 'https://github.com/joserizal',
         email: 'allpilarsolutions@gmail.com',
         linkedin: 'https://www.linkedin.com/in/joserizal',
         bio: 'Backend engineer specializing in scalable APIs, data modeling, performance tuning, and secure server-side systems.'
     },
     {
-        name: 'Silas Tyokaha',
-        title: 'Software Developer',
-        photo: '/dummy.png',
-        github: 'https://github.com/silassdev',
-        email: '9shila@gmail.com',
-        linkedin: 'https://www.linkedin.com/in/silassdev',
-        bio: 'Full-stack developer building production-ready web apps with React, Next.js, and pragmatic, maintainable tooling.'
-    },
-    {
         name: 'Khari Reyansh',
         title: 'Frontend Developer',
-        photo: '/dummy.png',
+        photo: '/khari.png',
         github: 'https://github.com/khari',
         email: 'allpilarsolution@gmail.com',
         linkedin: 'https://www.linkedin.com/in/khari',
@@ -70,15 +62,53 @@ const team = [
     }
 ];
 
-
 export default function Team() {
     const [index, setIndex] = useState(0)
+    const [isHovered, setIsHovered] = useState(false)
+    const [isVisible, setIsVisible] = useState(false)
+    const sectionRef = useRef<HTMLElement>(null)
+    const timerRef = useRef<NodeJS.Timeout | null>(null)
 
-    const next = () => setIndex((prev) => (prev + 1) % team.length)
-    const prev = () => setIndex((prev) => (prev - 1 + team.length) % team.length)
+    const next = useCallback(() => {
+        setIndex((prev) => (prev + 1) % team.length)
+    }, [])
+
+    const prev = useCallback(() => {
+        setIndex((prev) => (prev - 1 + team.length) % team.length)
+    }, [])
+
+    // Intersection Observer to detect visibility
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsVisible(entry.isIntersecting)
+            },
+            { threshold: 0.1 } // More permissive threshold
+        )
+
+        if (sectionRef.current) observer.observe(sectionRef.current)
+        return () => observer.disconnect()
+    }, [])
+
+    // Timer logic - resets when index changes or visibility/hover status changes
+    useEffect(() => {
+        if (isVisible && !isHovered) {
+            timerRef.current = setInterval(() => {
+                next()
+            }, 5000)
+        }
+
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current)
+        }
+    }, [isVisible, isHovered, next, index])
 
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section
+            id="team"
+            ref={sectionRef}
+            className="py-24 relative overflow-hidden"
+        >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="container mx-auto px-6 relative z-10">
@@ -102,17 +132,21 @@ export default function Team() {
                     </motion.p>
                 </div>
 
-                <div className="max-w-5xl mx-auto relative">
+                <div
+                    className="max-w-5xl mx-auto relative"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         {/* Photo Column */}
                         <div className="relative group">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-                                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                    exit={{ opacity: 0, scale: 0.9, rotate: 2 }}
-                                    transition={{ duration: 0.5, ease: "easeOut" }}
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -50 }}
+                                    transition={{ duration: 0.5, ease: "easeInOut" }}
                                     className="relative aspect-square rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-purple-500/10"
                                 >
                                     <Image
@@ -125,8 +159,24 @@ export default function Team() {
                                 </motion.div>
                             </AnimatePresence>
 
-                            <div className="absolute inset-y-0 left-0 w-1/4 md:hidden pointer-events-auto cursor-pointer" onClick={prev} />
-                            <div className="absolute inset-y-0 right-0 w-1/4 md:hidden pointer-events-auto cursor-pointer" onClick={next} />
+                            {/* Visible Arrow Buttons on Image */}
+                            <button
+                                onClick={(e) => { e.stopPropagation(); prev(); }}
+                                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-purple-600 hidden md:block z-20"
+                                aria-label="Previous member"
+                            >
+                                <FiChevronLeft size={24} />
+                            </button>
+                            <button
+                                onClick={(e) => { e.stopPropagation(); next(); }}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-purple-600 hidden md:block z-20"
+                                aria-label="Next member"
+                            >
+                                <FiChevronRight size={24} />
+                            </button>
+
+                            <div className="absolute inset-y-0 left-0 w-1/4 md:hidden pointer-events-auto cursor-pointer z-10" onClick={prev} />
+                            <div className="absolute inset-y-0 right-0 w-1/4 md:hidden pointer-events-auto cursor-pointer z-10" onClick={next} />
                         </div>
 
                         {/* Info Column */}
@@ -134,10 +184,10 @@ export default function Team() {
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={index}
-                                    initial={{ opacity: 0, x: 20 }}
+                                    initial={{ opacity: 0, x: 30 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
-                                    transition={{ duration: 0.4 }}
+                                    exit={{ opacity: 0, x: -30 }}
+                                    transition={{ duration: 0.4, ease: "easeInOut" }}
                                     className="space-y-6"
                                 >
                                     <div>
@@ -145,19 +195,31 @@ export default function Team() {
                                         <p className="text-xl text-purple-400 font-medium">{team[index].title}</p>
                                     </div>
 
-                                    <p className="text-slate-300 text-lg leading-relaxed">
+                                    <p className="text-slate-300 text-lg leading-relaxed min-h-[100px]">
                                         {team[index].bio}
                                     </p>
 
                                     <div className="flex items-center gap-6 pt-4">
-                                        <a
-                                            href={team[index].github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-slate-400 hover:text-white transition-colors"
-                                        >
-                                            <FiGithub size={28} />
-                                        </a>
+                                        {(team[index] as any).website && (
+                                            <a
+                                                href={(team[index] as any).website}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-slate-400 hover:text-white transition-colors"
+                                            >
+                                                <FiExternalLink size={28} />
+                                            </a>
+                                        )}
+                                        {team[index].github && (
+                                            <a
+                                                href={team[index].github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-slate-400 hover:text-white transition-colors"
+                                            >
+                                                <FiGithub size={28} />
+                                            </a>
+                                        )}
                                         <a
                                             href={`mailto:${team[index].email}`}
                                             className="text-slate-400 hover:text-white transition-colors"
@@ -177,7 +239,7 @@ export default function Team() {
                             </AnimatePresence>
 
                             {/* Slider Controls */}
-                            <div className="flex items-center gap-4 mt-12">
+                            <div className="flex items-center gap-4 mt-8">
                                 <button
                                     onClick={prev}
                                     className="p-3 rounded-full bg-slate-800/50 border border-white/10 text-white hover:bg-purple-600 transition-all hover:scale-110 active:scale-95 shadow-lg"
@@ -201,6 +263,24 @@ export default function Team() {
                                 >
                                     <FiChevronRight size={24} />
                                 </button>
+                            </div>
+
+                            {/* Team Thumbnails for Quick Switching */}
+                            <div className="mt-8 flex flex-wrap gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                                {team.map((member, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => setIndex(i)}
+                                        className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all duration-300 shrink-0 ${i === index ? 'border-purple-500 scale-110 shadow-lg shadow-purple-500/20' : 'border-white/10 grayscale hover:grayscale-0 hover:border-white/30'}`}
+                                    >
+                                        <Image
+                                            src={member.photo}
+                                            alt={member.name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </button>
+                                ))}
                             </div>
                         </div>
                     </div>

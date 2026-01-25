@@ -5,10 +5,11 @@ import { useSession, signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
+  { label: 'Projects', href: '/projects' },
   { label: 'About', href: '/about' },
   { label: 'Pricing', href: '/#pricing' },
   { label: 'Contact', href: '/contact' },
@@ -27,7 +28,7 @@ export default function Header() {
 
   const pathname = usePathname();
 
-  const MAIN_SITE_ROUTES = ['/', '/about', '/contact', '/privacy', '/terms', '/login'];
+  const MAIN_SITE_ROUTES = ['/', '/about', '/projects', '/contact', '/privacy', '/terms', '/login'];
 
   const isHidden = pathname.startsWith('/admin') || !MAIN_SITE_ROUTES.includes(pathname);
 
@@ -45,10 +46,10 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/5 border border-black/10 text-white group-hover:bg-white/10 transition-colors">
               <Image
-                src="/allpilar.png"
+                src="/logo.png"
                 alt="Allpilar logo"
-                width={100}
-                height={100}
+                width={60}
+                height={60}
                 className="object-contain"
               />
             </div>

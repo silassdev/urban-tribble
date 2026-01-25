@@ -19,6 +19,7 @@ type Contact = {
     anonymous?: boolean
     resolved?: boolean
     country?: string
+    contactInfo?: string
     createdAt: string
 }
 

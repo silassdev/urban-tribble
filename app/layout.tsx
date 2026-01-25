@@ -83,6 +83,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           Contact
                         </Link>
                       </li>
+                      <li>
+                        <a href="mailto:hello@allpilar.xyz" className="flex items-center gap-2 hover:text-blue-400 transition-colors">
+                          <FiMail className="w-4 h-4" />
+                          <span>hello@allpilar.xyz</span>
+                        </a>
+                      </li>
                     </ul>
                   </div>
 
@@ -133,7 +139,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </a>
 
                     <a
-                      href="mailto:allpilarsolution@gmail.com"
+                      href="mailto:hello@allpilar.xyz"
                       aria-label="Email Allpilar"
                       className="p-2 rounded-md hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     >

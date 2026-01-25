@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import { FiMail, FiSend, FiMessageSquare, FiUser, FiArrowLeft, FiInfo, FiSmartphone, FiShield, FiLock } from "react-icons/fi";
+import { useState, useEffect, Suspense } from "react";
+import { FiMail, FiSend, FiMessageSquare, FiUser, FiArrowLeft, FiInfo, FiSmartphone, FiShield, FiLock, FiLinkedin } from "react-icons/fi";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { toast } from "react-hot-toast";
 import StatusModal from "@/app/components/StatusModal";
 
-export default function ContactPage() {
+function ContactFormInner() {
+    const searchParams = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState<{
         isOpen: boolean;
@@ -25,6 +27,7 @@ export default function ContactPage() {
         name: "",
         email: "",
         preferredContact: "Email",
+        contactInfo: "",
         subject: "",
         message: "",
         anonymous: false
@@ -33,7 +36,20 @@ export default function ContactPage() {
     const [clientGeo, setClientGeo] = useState<{ ip?: string; country?: string }>({});
 
     useEffect(() => {
-        // Optional client-side geo lookup for improved accuracy/localhost testing
+        // Auto-subject generation from query params
+        const pkg = searchParams.get('package');
+        if (pkg) {
+            const subjects: Record<string, string> = {
+                starter: "Starter Plan Enquiry",
+                growth: "Growth Plan Enquiry",
+                custom: "Custom Solution Proposal"
+            };
+            setFormData(prev => ({
+                ...prev,
+                subject: subjects[pkg.toLowerCase()] || `Inquiry about ${pkg} plan`
+            }));
+        }
+
         const fetchGeo = async () => {
             try {
                 const res = await fetch('https://ipapi.co/json/');
@@ -50,6 +66,20 @@ export default function ContactPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Validation
+        if (formData.preferredContact === "LinkedIn") {
+            const linkedInRegex = /^https?:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/;
+            if (!linkedInRegex.test(formData.contactInfo)) {
+                toast.error("Please enter a valid LinkedIn profile URL");
+                return;
+            }
+        }
+        if (formData.preferredContact !== "Email" && !formData.contactInfo) {
+            toast.error(`Please provide your ${formData.preferredContact} details`);
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -60,7 +90,7 @@ export default function ContactPage() {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    description: formData.message, // Aligning field name for API
+                    description: formData.message,
                     clientCountry: clientGeo.country,
                     clientIp: clientGeo.ip
                 }),
@@ -79,6 +109,7 @@ export default function ContactPage() {
                     name: "",
                     email: "",
                     preferredContact: "Email",
+                    contactInfo: "",
                     subject: "",
                     message: "",
                     anonymous: false
@@ -184,15 +215,6 @@ export default function ContactPage() {
                                             <p className="text-white font-medium">hello@allpilar.xyz</p>
                                         </div>
                                     </div>
-                                    <div className="flex gap-5 group p-4 rounded-2xl transition-colors hover:bg-white/5 border border-transparent hover:border-white/5">
-                                        <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0 border border-indigo-500/20">
-                                            <FiMessageSquare className="text-indigo-400 text-xl" />
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Collaboration</p>
-                                            <p className="text-white font-medium">partners@allpilar.xyz</p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -246,42 +268,67 @@ export default function ContactPage() {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                        <div className="space-y-3">
-                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
-                                                <FiSmartphone size={12} className="text-indigo-400" /> Preferred Contact
-                                            </label>
+                                    <div className="space-y-3 relative">
+                                        <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                            <FiSmartphone size={12} className="text-indigo-400" /> Preferred Contact Means
+                                        </label>
+                                        <div className="relative group/select">
                                             <select
                                                 name="preferredContact"
                                                 value={formData.preferredContact}
                                                 onChange={handleChange}
-                                                className="w-full px-6 py-5 rounded-2xl bg-[#0a0a0b] border border-white/10 text-white focus:border-indigo-500/50 outline-none transition-all appearance-none cursor-pointer"
+                                                className="w-full px-6 py-5 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-indigo-500/50 focus:bg-white/[0.07] outline-none transition-all appearance-none cursor-pointer relative z-10"
                                             >
-                                                <option value="Email">Email</option>
-                                                <option value="Phone">Phone Call</option>
-                                                <option value="WhatsApp">WhatsApp</option>
-                                                <option value="LinkedIn">LinkedIn</option>
+                                                <option value="Email" className="bg-[#111113]">Email</option>
+                                                <option value="Phone" className="bg-[#111113]">Phone Call</option>
+                                                <option value="WhatsApp" className="bg-[#111113]">WhatsApp</option>
+                                                <option value="LinkedIn" className="bg-[#111113]">LinkedIn</option>
                                             </select>
-                                        </div>
-                                        <div className="space-y-3">
-                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
-                                                <FiShield size={12} className="text-emerald-400" /> Identity
-                                            </label>
-                                            <div className="flex items-center gap-3 px-6 py-5 bg-[#0a0a0b] border border-white/10 rounded-2xl">
-                                                <input
-                                                    type="checkbox"
-                                                    id="anonymous"
-                                                    name="anonymous"
-                                                    checked={formData.anonymous}
-                                                    onChange={handleChange}
-                                                    className="w-5 h-5 rounded h6 bg-purple-500 cursor-pointer"
-                                                />
-                                                <label htmlFor="anonymous" className="text-slate-300 text-sm cursor-pointer select-none">
-                                                    Submit Anonymously
-                                                </label>
+                                            <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none group-hover/select:text-indigo-400 transition-colors z-20">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
+                                                </svg>
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Dynamic Contact Info Field */}
+                                    {formData.preferredContact !== "Email" && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="space-y-3"
+                                        >
+                                            <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
+                                                {formData.preferredContact === "LinkedIn" ? (
+                                                    <FiLinkedin size={12} className="text-blue-400" />
+                                                ) : (
+                                                    <FiSmartphone size={12} className="text-green-400" />
+                                                )}
+                                                {formData.preferredContact} {formData.preferredContact === "LinkedIn" ? "Profile URL" : "Number"}
+                                            </label>
+                                            <input
+                                                required
+                                                type="text"
+                                                name="contactInfo"
+                                                value={formData.contactInfo}
+                                                onChange={(e) => {
+                                                    const val = e.target.value;
+                                                    // Only digits for phone/whatsapp
+                                                    if (["Phone", "WhatsApp"].includes(formData.preferredContact) && val !== "" && !/^\+?[0-9]*$/.test(val)) return;
+                                                    handleChange(e);
+                                                }}
+                                                placeholder={
+                                                    formData.preferredContact === "LinkedIn" ? "https://linkedin.com/in/username" :
+                                                        formData.preferredContact === "WhatsApp" ? "e.g. +1234567890" : "e.g. +1234567890"
+                                                }
+                                                className="w-full px-6 py-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.07] outline-none transition-all"
+                                            />
+                                            {formData.preferredContact === "LinkedIn" && formData.contactInfo && !/^https?:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/.test(formData.contactInfo) && (
+                                                <p className="text-[10px] text-red-400 font-bold uppercase tracking-widest ml-1">Invalid LinkedIn URL format</p>
+                                            )}
+                                        </motion.div>
+                                    )}
 
                                     <div className="space-y-3">
                                         <label className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2 ml-1">
@@ -355,5 +402,13 @@ export default function ContactPage() {
                 message={status.message}
             />
         </main>
+    );
+}
+
+export default function ContactPage() {
+    return (
+        <Suspense fallback={null}>
+            <ContactFormInner />
+        </Suspense>
     );
 }

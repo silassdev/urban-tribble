@@ -10,11 +10,13 @@ export interface IContact extends mongoose.Document {
     anonymous?: boolean
     resolved?: boolean
     country?: string
+    contactInfo?: string
 }
 
 const ContactSchema = new mongoose.Schema<IContact>({
     email: { type: String },
     preferredContact: { type: String },
+    contactInfo: { type: String },
     subject: { type: String },
     description: { type: String },
     ip: { type: String },
