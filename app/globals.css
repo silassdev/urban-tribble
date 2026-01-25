@@ -52,3 +52,45 @@ body {
 .animate-banner-scroll-right {
   animation: banner-scroll-right 25s linear infinite;
 }
+
+/* Flip card base */
+.perspective { perspective: 1200px; }
+
+.flip-card { height: 100%; }
+.flip-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 700ms cubic-bezier(.2,.9,.25,1);
+  position: relative;
+  min-height: 240px;
+  border-radius: 12px;
+}
+
+/* Faces */
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.flip-face.front { transform: rotateY(0deg); z-index: 2; }
+.flip-face.back { transform: rotateY(180deg); }
+
+/* Trigger flip on scroll (IntersectionObserver adds .is-visible) or on hover */
+.flip-card.is-visible .flip-card-inner,
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .flip-card-inner { transition: none; transform: none !important; }
+  .flip-face.back { display: none; }
+}
+
+/* Lightbox helper (small adjustments) */
+.backdrop-blur { backdrop-filter: blur(4px); }
