@@ -10,53 +10,17 @@ const team = [
         name: 'Silas Tyokaha',
         title: 'Co Founder',
         photo: '/silas.png',
-        email: 'allpilarsolutions@gmail.com',
+        email: 'silas@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/okonpeter',
         website: 'https://silas.allpilar.xyz',
         bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
-    },
-    {
-        name: 'Singh Priya',
-        title: 'Project Manager',
-        photo: '/priya.png',
-        github: 'https://github.com/sarah',
-        email: 'allpilarsolutions@gmail.com',
-        linkedin: 'https://www.linkedin.com/in/singhpriya',
-        bio: 'Project manager driving Agile delivery: roadmaps, stakeholder alignment, sprints, and on-time, on-budget launches.'
-    },
-    {
-        name: 'Aisha Bello',
-        title: 'DevOps Engineer',
-        photo: '/aisha.png',
-        github: 'https://github.com/aishabello',
-        email: 'allpilarsolutions@gmail.com',
-        linkedin: 'https://www.linkedin.com/in/aishabello',
-        bio: 'DevOps engineer building reliable CI/CD pipelines, cloud infrastructure, monitoring, and automated deployment workflows.'
-    },
-    {
-        name: 'Nathaniel Juan',
-        title: 'Software Engineer',
-        photo: '/nathaniel.png',
-        github: 'https://github.com/nathanjuan',
-        email: 'allpilarsolutions@gmail.com',
-        linkedin: 'https://www.linkedin.com/in/nathanjuan',
-        bio: 'Software engineer focused on reliable APIs, system design, performance optimization, and test-driven development.'
-    },
-    {
-        name: 'Jose Rizal',
-        title: 'Backend Engineer',
-        photo: '/jose.png',
-        github: 'https://github.com/joserizal',
-        email: 'allpilarsolutions@gmail.com',
-        linkedin: 'https://www.linkedin.com/in/joserizal',
-        bio: 'Backend engineer specializing in scalable APIs, data modeling, performance tuning, and secure server-side systems.'
     },
     {
         name: 'Khari Reyansh',
         title: 'Frontend Developer',
         photo: '/khari.png',
         github: 'https://github.com/khari',
-        email: 'allpilarsolution@gmail.com',
+        email: 'hello@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/khari',
         bio: 'Frontend developer crafting accessible, responsive UIs and reusable component systems for fast user experiences.'
     }
