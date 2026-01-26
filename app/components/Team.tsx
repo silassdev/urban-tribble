@@ -9,7 +9,7 @@ const team = [
     {
         name: 'Silas Tyokaha',
         title: 'Co Founder',
-        photo: '/silas.png',
+        photo: '/sil.jpg',
         email: 'silas@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/okonpeter',
         website: 'https://silas.allpilar.xyz',
