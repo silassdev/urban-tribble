@@ -41,5 +41,13 @@ export const PROJECTS: Project[] = [
         demoUrl: 'https://demo-one.allpilar.xyz/',
         imgA: { src: '/allpilar1.PNG', alt: 'Demo screenshot 1', blurDataURL: '' },
         imgB: { src: '/allpilar2.PNG', alt: 'Demo Builder screenshot 2', blurDataURL: '' }
-    }
+    },
+    {
+        id: 'p6',
+        title: 'Dashboard UI',
+        description: 'Tailwind CSS Designed analytical dashboard.',
+        demoUrl: 'https://demo-dash.allpilar.xyz/',
+        imgA: { src: '/dash1.PNG', alt: 'Dashboard screenshot 1', blurDataURL: '' },
+        imgB: { src: '/dash2.PNG', alt: 'Dashboard screenshot 2', blurDataURL: '' }
+    },
 ]
