@@ -23,8 +23,8 @@ export const PROJECTS: Project[] = [
         title: 'Ecommerce Online',
         description: 'A modern e-commerce scaffold designed for a computer accessories store.',
         demoUrl: 'https://demo-ecom.allpilar.xyz/',
-        imgA: { src: '/ecom1.PNG', alt: 'Ecommerce screenshot 1', blurDataURL: '' },
-        imgB: { src: '/ecom2.PNG', alt: 'Ecommerce screenshot 2', blurDataURL: '' }
+        imgA: { src: '/church1.PNG', alt: 'Ecommerce screenshot 1', blurDataURL: '' },
+        imgB: { src: '/church2.PNG', alt: 'Ecommerce screenshot 2', blurDataURL: '' }
     },
     {
         id: 'p4',
