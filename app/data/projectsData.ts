@@ -33,5 +33,13 @@ export const PROJECTS: Project[] = [
         demoUrl: 'https://demo-church.allpilar.xyz/',
         imgA: { src: '/micro1.PNG', alt: 'Church Management screenshot 1', blurDataURL: '' },
         imgB: { src: '/micro2.PNG', alt: 'Church Management screenshot 2', blurDataURL: '' }
-    }
+    },
+       {
+        id: 'p5',
+        title: 'Demo',
+        description: 'Bootstrap Simple Landing Page.',
+        demoUrl: 'https://demo-one.allpilar.xyz/',
+        imgA: { src: '/allpilar1.PNG', alt: 'Demo screenshot 1', blurDataURL: '' },
+        imgB: { src: '/allpilar2.PNG', alt: 'Demo Builder screenshot 2', blurDataURL: '' }
+    },
 ]
