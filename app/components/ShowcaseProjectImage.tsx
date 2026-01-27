@@ -58,13 +58,11 @@ export default function ShowcaseProjectImage({ items }: { items: ProjectItem[] }
                             </div>
                         </div>
 
-                        {/* MIDDLE: IMAGE AREA with Smooth Switch */}
                         <div className="relative h-[400px] md:h-[550px] px-8 mb-6 perspective">
                             <div
                                 className="relative w-full h-full cursor-pointer transition-transform duration-500 group-hover:scale-[1.01]"
                                 onClick={() => openLightboxFor(item, hoveredIndex === idx ? 1 : 0)}
                             >
-                                {/* Primary Image (imgA) */}
                                 <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${hoveredIndex === idx ? 'opacity-0 scale-105 blur-sm' : 'opacity-100 scale-100 blur-0'} z-10`}>
                                     <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-white/5 shadow-2xl">
                                         <Image
@@ -84,7 +82,6 @@ export default function ShowcaseProjectImage({ items }: { items: ProjectItem[] }
                                     </div>
                                 </div>
 
-                                {/* Secondary Image (imgB) */}
                                 <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${hoveredIndex === idx ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-95 blur-md'} z-20`}>
                                     <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_0_40px_rgba(79,70,229,0.1)]">
                                         <Image
@@ -112,7 +109,6 @@ export default function ShowcaseProjectImage({ items }: { items: ProjectItem[] }
                             </div>
                         </div>
 
-                        {/* BOTTOM: DESCRIPTION & CTA */}
                         <div className="p-8 pt-2 flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <p className="text-lg text-slate-400 leading-relaxed max-w-2xl font-medium">
                                 {item.description}
