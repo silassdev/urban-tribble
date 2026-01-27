@@ -25,49 +25,13 @@ export default function ShowcaseProjectImage({ items }: { items: ProjectItem[] }
     const [lightboxOpen, setLightboxOpen] = useState(false)
     const [lightboxIndex, setLightboxIndex] = useState(0)
     const [lightboxImages, setLightboxImages] = useState<ProjectImage[]>([])
-    const [activeIndex, setActiveIndex] = useState<number | null>(null)
-    const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
     const openLightboxFor = (item: ProjectItem, startIdx: number) => {
         setLightboxImages([item.imgA, item.imgB])
         setLightboxIndex(startIdx)
         setLightboxOpen(true)
     }
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const viewportCenter = window.innerHeight / 2;
-            let closestIndex = -1;
-            let minDistance = Infinity;
-
-            cardsRef.current.forEach((card, idx) => {
-                if (!card) return;
-                const rect = card.getBoundingClientRect();
-                const cardCenter = rect.top + rect.height / 2;
-                const distance = Math.abs(viewportCenter - cardCenter);
-
-                // Only consider cards that are actually in view
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestIndex = idx;
-                    }
-                }
-            });
-
-            // Threshold: Only flip if the card is relatively central (distance < 30% of viewport height)
-            if (closestIndex !== -1 && minDistance < window.innerHeight * 0.3) {
-                setActiveIndex(closestIndex);
-            } else {
-                setActiveIndex(null);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Initial check
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [items]); // items is a dependency because cardsRef.current is populated based on items
 
     return (
         <section className="w-full space-y-16">
@@ -79,44 +43,50 @@ export default function ShowcaseProjectImage({ items }: { items: ProjectItem[] }
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ duration: 0.6, delay: idx * 0.1 }}
+                        onMouseEnter={() => setHoveredIndex(idx)}
+                        onMouseLeave={() => setHoveredIndex(null)}
                         className="group relative flex flex-col bg-[#161b22]/40 backdrop-blur-xl border border-white/5 rounded-[2.5rem] overflow-hidden hover:border-white/10 transition-all duration-700 hover:shadow-[0_0_50px_-12px_rgba(79,70,229,0.2)]"
                     >
                         {/* HEADER: APP NAME */}
-                        <div className="p-8 pb-4">
+                        <div className="p-8 pb-4 flex items-center justify-between">
                             <h3 className="text-2xl md:text-3xl font-black text-white tracking-tighter group-hover:text-indigo-400 transition-colors duration-300">
                                 {item.title}
                             </h3>
+                            <div className="flex gap-2">
+                                <div className={`w-2 h-2 rounded-full transition-all duration-500 ${hoveredIndex === idx ? 'bg-white/20' : 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]'}`} />
+                                <div className={`w-2 h-2 rounded-full transition-all duration-500 ${hoveredIndex === idx ? 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]' : 'bg-white/20'}`} />
+                            </div>
                         </div>
 
-                        {/* MIDDLE: FLIPPING IMAGE AREA (Taller & Proportional) */}
-                        <div className="relative h-[400px] md:h-[500px] px-8 mb-6">
+                        {/* MIDDLE: IMAGE AREA with Smooth Switch */}
+                        <div className="relative h-[400px] md:h-[550px] px-8 mb-6 perspective">
                             <div
-                                ref={(el: HTMLDivElement | null) => { cardsRef.current[idx] = el }}
-                                className={`flip-card w-full h-full perspective cursor-pointer transition-transform duration-700 ${activeIndex === idx ? 'is-visible scale-[1.02]' : 'scale-100'}`}
-                                onClick={() => openLightboxFor(item, 0)}
+                                className="relative w-full h-full cursor-pointer transition-transform duration-500 group-hover:scale-[1.01]"
+                                onClick={() => openLightboxFor(item, hoveredIndex === idx ? 1 : 0)}
                             >
-                                <div className="flip-card-inner w-full h-full relative transition-transform duration-700">
-                                    {/* FRONT FACE */}
-                                    <div className="flip-face front bg-[#0a0a0a] border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
+                                {/* Primary Image (imgA) */}
+                                <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${hoveredIndex === idx ? 'opacity-0 scale-105 blur-sm' : 'opacity-100 scale-100 blur-0'} z-10`}>
+                                    <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-white/5 shadow-2xl">
                                         <Image
                                             src={item.imgA.src}
                                             alt={item.imgA.alt || `${item.title} dashboard`}
                                             fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover"
                                             placeholder={item.imgA.blurDataURL ? 'blur' : undefined}
                                             blurDataURL={item.imgA.blurDataURL}
                                             sizes="(max-width: 1024px) 100vw, 1024px"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-8">
                                             <div className="flex items-center gap-3">
-                                                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                                                <span className="text-xs font-black text-white/50 uppercase tracking-[0.3em]">Module Overview</span>
+                                                <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">Overview View</span>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    {/* BACK FACE */}
-                                    <div className="flip-face back bg-[#0a0a0a] border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
+                                {/* Secondary Image (imgB) */}
+                                <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${hoveredIndex === idx ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-95 blur-md'} z-20`}>
+                                    <div className="relative w-full h-full overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_0_40px_rgba(79,70,229,0.1)]">
                                         <Image
                                             src={item.imgB.src}
                                             alt={item.imgB.alt || `${item.title} details`}
@@ -126,16 +96,15 @@ export default function ShowcaseProjectImage({ items }: { items: ProjectItem[] }
                                             blurDataURL={item.imgB.blurDataURL}
                                             sizes="(max-width: 1024px) 100vw, 1024px"
                                         />
-                                        <div className="absolute inset-0 bg-indigo-600/10 backdrop-blur-[1px]" />
-                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center">
+                                        <div className="absolute inset-0 bg-indigo-600/5 backdrop-blur-[1px]" />
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                                            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:scale-110 transition-transform">
                                                 <FiMaximize2 className="w-6 h-6 text-white" />
                                             </div>
                                         </div>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/80 via-transparent to-transparent flex items-end p-8">
+                                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/60 via-transparent to-transparent flex items-end p-8">
                                             <div className="flex items-center gap-3">
-                                                <span className="w-2 h-2 rounded-full bg-white animate-bounce" />
-                                                <span className="text-xs font-black text-indigo-200 uppercase tracking-[0.3em]">Deep Dive Preview</span>
+                                                <span className="text-[10px] font-black text-indigo-200/60 uppercase tracking-[0.3em]">Alternative View</span>
                                             </div>
                                         </div>
                                     </div>

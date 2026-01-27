@@ -23,18 +23,18 @@ export const PROJECTS: Project[] = [
         title: 'Ecommerce Online',
         description: 'A modern e-commerce scaffold designed for a computer accessories store.',
         demoUrl: 'https://demo-ecom.allpilar.xyz/',
-        imgA: { src: '/church1.PNG', alt: 'Ecommerce screenshot 1', blurDataURL: '' },
-        imgB: { src: '/church2.PNG', alt: 'Ecommerce screenshot 2', blurDataURL: '' }
+        imgA: { src: '/ecom1.PNG', alt: 'Ecommerce screenshot 1', blurDataURL: '' },
+        imgB: { src: '/ecom2.PNG', alt: 'Ecommerce screenshot 2', blurDataURL: '' }
     },
     {
         id: 'p4',
         title: 'Church Management & Payment Platform',
         description: 'A robust management system for churches featurin hierarchical User roles, secure payment processing, and real-time updates.',
         demoUrl: 'https://demo-church.allpilar.xyz/',
-        imgA: { src: '/micro1.PNG', alt: 'Church Management screenshot 1', blurDataURL: '' },
-        imgB: { src: '/micro2.PNG', alt: 'Church Management screenshot 2', blurDataURL: '' }
+        imgA: { src: '/church1.PNG', alt: 'Church Management screenshot 1', blurDataURL: '' },
+        imgB: { src: '/church2.PNG', alt: 'Church Management screenshot 2', blurDataURL: '' }
     },
-       {
+    {
         id: 'p5',
         title: 'Demo',
         description: 'Bootstrap Simple Landing Page.',

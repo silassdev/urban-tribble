@@ -72,7 +72,7 @@ export default function ProjectsPage({ searchParams }: Props) {
                     </motion.p>
                     <div className="pt-4 flex items-center justify-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
                         <span className="w-8 h-[1px] bg-slate-800" />
-                        Showing {start + 1}–{Math.min(end, total)} of {total} projects
+                        Showing {total > 0 ? start + 1 : 0}–{Math.min(end, total)} of {total} projects
                         <span className="w-8 h-[1px] bg-slate-800" />
                     </div>
                 </header>
@@ -80,29 +80,43 @@ export default function ProjectsPage({ searchParams }: Props) {
                 <ShowcaseProjectImage items={pageItems} />
 
                 {/* Pagination */}
-                <nav className="mt-20 flex items-center justify-between border-t border-white/5 pt-8">
-                    <div>
-                        <span className="text-sm font-medium text-slate-500 tracking-tight">
-                            Page <span className="text-white">{currentPage}</span> of {totalPages}
-                        </span>
-                    </div>
+                {totalPages > 1 && (
+                    <nav className="mt-20 flex flex-col sm:flex-row items-center justify-between border-t border-white/5 pt-8 gap-6">
+                        <div>
+                            <span className="text-sm font-medium text-slate-500 tracking-tight">
+                                Page <span className="text-white">{currentPage}</span> of {totalPages}
+                            </span>
+                        </div>
 
-                    <div className="flex items-center gap-3">
-                        <Link
-                            href={pageUrl(Math.max(1, currentPage - 1))}
-                            className={`px-4 py-2 rounded-xl border border-white/5 text-sm font-bold transition-all ${currentPage === 1 ? 'opacity-30 pointer-events-none' : 'bg-white/5 text-white hover:bg-white/10 hover:border-white/20'}`}
-                        >
-                            Prev
-                        </Link>
+                        <div className="flex items-center gap-2">
+                            <Link
+                                href={pageUrl(Math.max(1, currentPage - 1))}
+                                className={`px-4 py-2 rounded-xl border border-white/5 text-sm font-bold transition-all ${currentPage === 1 ? 'opacity-30 pointer-events-none' : 'bg-white/5 text-white hover:bg-white/10 hover:border-white/20'}`}
+                            >
+                                Prev
+                            </Link>
 
-                        <Link
-                            href={pageUrl(Math.min(totalPages, currentPage + 1))}
-                            className={`px-4 py-2 rounded-xl border border-white/5 text-sm font-bold transition-all ${currentPage === totalPages ? 'opacity-30 pointer-events-none' : 'bg-white/5 text-white hover:bg-white/10 hover:border-white/20'}`}
-                        >
-                            Next
-                        </Link>
-                    </div>
-                </nav>
+                            <div className="hidden md:flex items-center gap-2">
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                                    <Link
+                                        key={p}
+                                        href={pageUrl(p)}
+                                        className={`w-10 h-10 flex items-center justify-center rounded-xl border text-sm font-bold transition-all ${currentPage === p ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/10 hover:border-white/20'}`}
+                                    >
+                                        {p}
+                                    </Link>
+                                ))}
+                            </div>
+
+                            <Link
+                                href={pageUrl(Math.min(totalPages, currentPage + 1))}
+                                className={`px-4 py-2 rounded-xl border border-white/5 text-sm font-bold transition-all ${currentPage === totalPages ? 'opacity-30 pointer-events-none' : 'bg-white/5 text-white hover:bg-white/10 hover:border-white/20'}`}
+                            >
+                                Next
+                            </Link>
+                        </div>
+                    </nav>
+                )}
             </div>
         </motion.main>
     )
