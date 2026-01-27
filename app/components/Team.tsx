@@ -11,14 +11,23 @@ const team = [
         title: 'Co Founder',
         photo: '/sil.jpg',
         email: 'silas@allpilar.xyz',
-        linkedin: 'https://www.linkedin.com/in/okonpeter',
+        linkedin: 'https://www.linkedin.com/in/silassdev',
         website: 'https://silas.allpilar.xyz',
         bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
     },
     {
+        name: 'Luke Okon',
+        title: 'Backend Developer',
+        photo: '/dummy.png',
+        github: 'https://github.com/Luke',
+        email: 'hello@allpilar.xyz',
+        linkedin: 'https://www.linkedin.com/in/luke',
+        bio: 'Backend developer building scalable and performant cloud systems.'
+    },
+    {
         name: 'Khari Reyansh',
         title: 'Frontend Developer',
-        photo: '/khari.png',
+        photo: '/dummy.png',
         github: 'https://github.com/khari',
         email: 'hello@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/khari',
@@ -41,13 +50,12 @@ export default function Team() {
         setIndex((prev) => (prev - 1 + team.length) % team.length)
     }, [])
 
-    // Intersection Observer to detect visibility
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 setIsVisible(entry.isIntersecting)
             },
-            { threshold: 0.1 } // More permissive threshold
+            { threshold: 0.1 }
         )
 
         if (sectionRef.current) observer.observe(sectionRef.current)
