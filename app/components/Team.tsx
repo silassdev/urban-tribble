@@ -62,7 +62,6 @@ export default function Team() {
         return () => observer.disconnect()
     }, [])
 
-    // Timer logic - resets when index changes or visibility/hover status changes
     useEffect(() => {
         if (isVisible && !isHovered) {
             timerRef.current = setInterval(() => {
@@ -131,7 +130,6 @@ export default function Team() {
                                 </motion.div>
                             </AnimatePresence>
 
-                            {/* Visible Arrow Buttons on Image */}
                             <button
                                 onClick={(e) => { e.stopPropagation(); prev(); }}
                                 className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-purple-600 hidden md:block z-20"
