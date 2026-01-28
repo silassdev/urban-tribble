@@ -8,7 +8,7 @@ import Image from 'next/image'
 const team = [
     {
         name: 'Silas Tyokaha',
-        title: 'Co Founder',
+        title: 'Co Founder/ DevOps',
         photo: '/sil.jpg',
         email: 'silas@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/silassdev',
@@ -16,12 +16,12 @@ const team = [
         bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
     },
     {
-        name: 'Luke Okon',
+        name: 'Hopefree Motari',
         title: 'Backend Developer',
         photo: '/dummy.png',
-        github: 'https://github.com/Luke',
+        github: 'https://github.com/motari2004',
         email: 'hello@allpilar.xyz',
-        linkedin: 'https://www.linkedin.com/in/luke',
+        linkedin: 'https://www.linkedin.com/in/motari',
         bio: 'Backend developer building scalable and performant cloud systems.'
     },
     {

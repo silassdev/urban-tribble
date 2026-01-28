@@ -7,9 +7,65 @@ import { Toaster } from 'react-hot-toast';
 import { FiTwitter, FiLinkedin, FiMail } from 'react-icons/fi';
 
 export const metadata = {
-  title: 'Allpilar | Premium Web Solutions',
-  description:
-    'Allpilar delivers high-performance web applications, bespoke software architecture, and cutting-edge digital solutions for modern businesses.',
+  metadataBase: new URL('https://allpilar.xyz'),
+  title: {
+    default: 'Allpilar | Premium Web Solutions',
+    template: '%s | Allpilar',
+  },
+  description: 'Allpilar delivers high-performance web applications, bespoke software architecture, and cutting-edge digital solutions for modern businesses.',
+  keywords: ['Web Development', 'Software Architecture', 'AI Integration', 'Next.js', 'React', 'Scalable Solutions', 'Digital Transformation', 'Allpilar'],
+  authors: [{ name: 'Allpilar Team' }],
+  creator: 'Allpilar',
+  publisher: 'Allpilar',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: 'Allpilar | Premium Web Solutions',
+    description: 'Allpilar delivers high-performance web applications, bespoke software architecture, and cutting-edge digital solutions for modern businesses.',
+    url: 'https://allpilar.xyz',
+    siteName: 'Allpilar',
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Allpilar Premium Web Solutions',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Allpilar | Premium Web Solutions',
+    description: 'Allpilar delivers high-performance web applications, bespoke software architecture, and cutting-edge digital solutions for modern businesses.',
+    images: ['/logo.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
+};
+
+export const viewport = {
+  themeColor: '#0d1117',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
