@@ -12,6 +12,7 @@ const team = [
         photo: '/sil.jpg',
         email: 'silas@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/silassdev',
+        github: 'https://github.com/silassdev',
         website: 'https://silas.allpilar.xyz',
         bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
     },
