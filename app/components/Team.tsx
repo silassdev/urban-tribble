@@ -12,6 +12,7 @@ const team = [
         photo: '/sil.jpg',
         email: 'silas@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/silassdev',
+        github: 'https://github.com/silassdev',
         website: 'https://silas.allpilar.xyz',
         bio: 'Co-founder and technical lead who defines product vision, architecture, and developer workflows for scalable cloud systems.'
     },
@@ -234,8 +235,6 @@ export default function Team() {
                                     <FiChevronRight size={24} />
                                 </button>
                             </div>
-
-                            {/* Team Thumbnails for Quick Switching */}
                             <div className="mt-8 flex flex-wrap gap-4 overflow-x-auto pb-4 scrollbar-hide">
                                 {team.map((member, i) => (
                                     <button
