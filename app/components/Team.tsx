@@ -18,7 +18,7 @@ const team = [
     {
         name: 'Hopefree Motari',
         title: 'Backend Developer',
-        photo: '/dummy.png',
+        photo: '/hopefree.png',
         github: 'https://github.com/motari2004',
         email: 'hello@allpilar.xyz',
         linkedin: 'https://www.linkedin.com/in/motari',
