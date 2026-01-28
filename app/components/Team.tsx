@@ -235,8 +235,6 @@ export default function Team() {
                                     <FiChevronRight size={24} />
                                 </button>
                             </div>
-
-                            {/* Team Thumbnails for Quick Switching */}
                             <div className="mt-8 flex flex-wrap gap-4 overflow-x-auto pb-4 scrollbar-hide">
                                 {team.map((member, i) => (
                                     <button
