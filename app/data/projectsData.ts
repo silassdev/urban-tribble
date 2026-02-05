@@ -12,6 +12,14 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 'p2',
+        title: 'Church Management & Payment Platform',
+        description: 'A robust management system for churches featurin hierarchical User roles, secure payment processing, and real-time updates.',
+        demoUrl: 'https://demo-church.allpilar.xyz/',
+        imgA: { src: '/church1.PNG', alt: 'Church Management screenshot 1', blurDataURL: '' },
+        imgB: { src: '/church2.PNG', alt: 'Church Management screenshot 2', blurDataURL: '' }
+    },
+    {
+        id: 'p3',
         title: 'Modern Resume Builder',
         description: 'A Rich, professional resume builder application built with Next.js and modern web technologies.',
         demoUrl: 'https://demo-resume.allpilar.xyz/',
@@ -19,21 +27,14 @@ export const PROJECTS: Project[] = [
         imgB: { src: '/res2.PNG', alt: 'Resume Builder screenshot 2', blurDataURL: '' }
     },
     {
-        id: 'p3',
+        id: 'p4',
         title: 'Ecommerce Online',
         description: 'A modern e-commerce scaffold designed for a computer accessories store.',
         demoUrl: 'https://demo-ecom.allpilar.xyz/',
         imgA: { src: '/ecom1.PNG', alt: 'Ecommerce screenshot 1', blurDataURL: '' },
         imgB: { src: '/ecom2.PNG', alt: 'Ecommerce screenshot 2', blurDataURL: '' }
     },
-    {
-        id: 'p4',
-        title: 'Church Management & Payment Platform',
-        description: 'A robust management system for churches featurin hierarchical User roles, secure payment processing, and real-time updates.',
-        demoUrl: 'https://demo-church.allpilar.xyz/',
-        imgA: { src: '/church1.PNG', alt: 'Church Management screenshot 1', blurDataURL: '' },
-        imgB: { src: '/church2.PNG', alt: 'Church Management screenshot 2', blurDataURL: '' }
-    },
+ 
     {
         id: 'p5',
         title: 'Demo',

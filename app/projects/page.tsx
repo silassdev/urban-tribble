@@ -17,7 +17,7 @@ export default function ProjectsPage({ searchParams }: Props) {
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(0)
     const [total, setTotal] = useState(0)
-    const pageSize = 5 // Reduced for single column prominence
+    const pageSize = 5
 
     useEffect(() => {
         async function loadParams() {
@@ -42,7 +42,6 @@ export default function ProjectsPage({ searchParams }: Props) {
         loadParams()
     }, [searchParams])
 
-    // Helper to build page URL
     const pageUrl = (p: number) => `/projects?page=${p}`
 
     return (

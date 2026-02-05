@@ -110,7 +110,6 @@ export default function Team() {
                     onMouseLeave={() => setIsHovered(false)}
                 >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        {/* Photo Column */}
                         <div className="relative group">
                             <AnimatePresence mode="wait">
                                 <motion.div

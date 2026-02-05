@@ -6,7 +6,7 @@ type Tier = {
     id: string
     title: string
     subtitle: string
-    price: string
+    //price: string
     features: string[]
     ctaText: string
     ctaHref: string
@@ -18,7 +18,7 @@ const TIERS: Tier[] = [
         id: 'basic',
         title: 'Starter',
         subtitle: 'Ideal for portfolios, landing pages, and small brochure sites (up to 10 pages).',
-        price: 'From $500',
+        //price: '',
         features: [
             'Up to 10 pages',
             'Responsive design',
@@ -32,7 +32,7 @@ const TIERS: Tier[] = [
         id: 'advanced',
         title: 'Growth',
         subtitle: 'Full-featured sites for startups and small businesses — e‑commerce and dynamic content.',
-        price: 'From $1,000',
+        //price: 'From $1,000',
         features: [
             'Unlimited pages',
             'CMS or headless-CMS integration',
@@ -47,7 +47,7 @@ const TIERS: Tier[] = [
         id: 'custom',
         title: 'Custom',
         subtitle: 'Bespoke web applications, integrations, or enterprise solutions tailored to your needs.',
-        price: 'Bespoke Quote',
+        //price: 'Bespoke Quote',
         features: [
             'Custom architecture and design',
             'Third‑party integrations',
@@ -105,11 +105,13 @@ export default function Packages() {
                                         )}
                                     </div>
 
+                                     {/* Slider Controls 
                                     <div className="flex items-baseline gap-1 mb-2">
                                         <span className={`text-3xl font-bold ${t.highlight ? 'text-blue-400' : 'text-white'}`}>
                                             {t.price}
                                         </span>
-                                    </div>
+                                    </div> */}
+                                    
                                     <p className="text-sm text-slate-400 mb-8 min-h-[40px]">
                                         {t.subtitle}
                                     </p>

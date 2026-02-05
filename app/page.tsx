@@ -10,7 +10,7 @@ import ShowcaseProjectImage from '@/app/components/ShowcaseProjectImage'
 import { PROJECTS } from '@/app/data/projectsData'
 
 export default function Page() {
-  const featuredProjects = PROJECTS.slice(0, 3)
+  const featuredProjects = PROJECTS.slice(0, 2)
 
   return (
     <main className="space-y-12 py-12">
