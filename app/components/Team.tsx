@@ -118,7 +118,7 @@ export default function Team() {
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -50 }}
                                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                                    className="relative aspect-square rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-purple-500/10"
+                                    className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-purple-500/10"
                                 >
                                     <Image
                                         src={team[index].photo}
