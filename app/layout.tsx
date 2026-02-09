@@ -5,6 +5,7 @@ import Link from 'next/link';
 import SessionProvider from './components/SessionProvider';
 import { Toaster } from 'react-hot-toast';
 import { FiTwitter, FiLinkedin, FiMail } from 'react-icons/fi';
+import ChatWidget from './components/ChatWidget';
 
 export const metadata = {
   metadataBase: new URL('https://allpilar.xyz'),
@@ -208,6 +209,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </footer>
           </div>
 
+          <ChatWidget />
         </SessionProvider>
       </body>
     </html>
