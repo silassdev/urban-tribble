@@ -8,16 +8,16 @@ let cachedDb: Db | null = null
 export async function getDb(): Promise<Db> {
     if (cachedDb) return cachedDb
 
-    const uri = process.env.MONGO_URI
-    if (!uri) throw new Error('MONGO_URI missing in env')
+    const uri = process.env.MONGODB_URI
+    if (!uri) throw new Error('MONGODB_URI missing in env')
 
     if (!client) {
         client = new MongoClient(uri, {})
         await client.connect()
     }
 
-    cachedDb = client.db(process.env.MONGO_DB || 'allpilar')
+    cachedDb = client.db(process.env.MONGODB_DB || 'allpilar')
     return cachedDb
 }
 
-export default client // null initially, but that's okay for most uses as they should use getDb()
+export default client
