@@ -7,7 +7,7 @@ function genSessionId() { return crypto.randomBytes(10).toString('hex') }
 
 export async function POST(req: NextRequest) {
     try {
-        await getDb() // ensure connection
+        await getDb() // ensure (native) and mongoose connection
         const body = await req.json()
         const ip = req.headers.get('x-forwarded-for') || 'unknown'
         const deviceFingerprint = body.deviceFingerprint || req.headers.get('x-device-fp') || ''
