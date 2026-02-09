@@ -10,11 +10,7 @@ const MODEL_NAME = process.env.GEMINI_EMBED_MODEL || 'text-embedding-004'
 const genAI = new GoogleGenerativeAI(API_KEY)
 const model = genAI.getGenerativeModel({ model: MODEL_NAME })
 
-/**
- * embedTexts
- * - texts: array of strings to embed
- * - returns: array of vectors (number[])
- */
+
 export async function embedTexts(texts: string[]): Promise<number[][]> {
     if (!Array.isArray(texts)) throw new TypeError('texts must be an array of strings')
     if (texts.length === 0) return []
