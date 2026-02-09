@@ -18,10 +18,10 @@ export default function ChatWidget() {
 
     // show welcome popup only first-time (client)
     useEffect(() => {
-        const seen = localStorage.getItem('ap_bot_seen_v1')
+        const seen = localStorage.getItem('ap_bot_seen_v2')
         if (!seen) {
-            setTimeout(() => setOpen(true), 2000) // slight delay for effect
-            localStorage.setItem('ap_bot_seen_v1', '1')
+            setTimeout(() => setOpen(true), 1500) // slight delay for effect
+            localStorage.setItem('ap_bot_seen_v2', '1')
         }
     }, [])
 
