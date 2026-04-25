@@ -24,13 +24,21 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Email, code, and new password are required' }, { status: 400 })
         }
 
-        const admin = await Admin.findOne({
-            email,
-            resetCode: code,
-            resetCodeExpiry: { $gt: new Date() }
-        })
-
-        if (!admin) {
+        const admin = await Admin.findOne({ email })
+        
+        console.log('--- DEBUG RESET CONFIRM ---')
+        console.log('Email received:', email)
+        console.log('Code received:', code)
+        if (admin) {
+            console.log('Admin in DB:')
+            console.log('resetCode:', admin.resetCode)
+            console.log('resetCodeExpiry:', admin.resetCodeExpiry)
+            console.log('Is Expired?', admin.resetCodeExpiry ? new Date() > admin.resetCodeExpiry : 'No expiry set')
+        } else {
+            console.log('Admin not found in DB with this email.')
+        }
+        
+        if (!admin || admin.resetCode !== code || !admin.resetCodeExpiry || new Date() > admin.resetCodeExpiry) {
             return NextResponse.json({ error: 'Invalid or expired confirmation code' }, { status: 400 })
         }
 
