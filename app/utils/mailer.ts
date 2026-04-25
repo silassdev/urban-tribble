@@ -12,10 +12,9 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-export async function sendAdminNotification(subject: string, html: string) {
-    const to = process.env.ADMIN_EMAIL
+export async function sendEmail(to: string, subject: string, html: string) {
     if (!to) {
-        console.warn('ADMIN_EMAIL not configured; skipping notification')
+        console.warn('Destination email not provided; skipping notification')
         return
     }
 
@@ -25,4 +24,14 @@ export async function sendAdminNotification(subject: string, html: string) {
         subject,
         html
     })
+}
+
+export async function sendAdminNotification(subject: string, html: string) {
+    const to = process.env.ADMIN_EMAIL
+    if (!to) {
+        console.warn('ADMIN_EMAIL not configured; skipping notification')
+        return
+    }
+
+    await sendEmail(to, subject, html)
 }
