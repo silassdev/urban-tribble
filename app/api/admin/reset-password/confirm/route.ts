@@ -15,7 +15,10 @@ export async function POST(request: NextRequest) {
     try {
         await connectDB()
 
-        const { email, code, newPassword } = await request.json()
+        const body = await request.json()
+        const email = body.email?.trim()
+        const code = body.code?.trim()
+        const newPassword = body.newPassword
 
         if (!email || !code || !newPassword) {
             return NextResponse.json({ error: 'Email, code, and new password are required' }, { status: 400 })
