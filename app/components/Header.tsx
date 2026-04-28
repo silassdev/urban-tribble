@@ -9,7 +9,7 @@ import { Menu, X, User, LogOut } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
-  { label: 'Projects', href: '/projects' },
+  // { label: 'Projects', href: '/projects' },
   { label: 'About', href: '/about' },
   { label: 'Pricing', href: '/#pricing' },
   { label: 'Contact', href: '/contact' },

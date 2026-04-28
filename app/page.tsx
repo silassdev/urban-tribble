@@ -19,6 +19,7 @@ export default function Page() {
         <Marquee />
       </header>
 
+      {/* 
       <section className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold">Featured Projects</h2>
@@ -28,6 +29,7 @@ export default function Page() {
         </div>
         <ShowcaseProjectImage items={featuredProjects} />
       </section>
+      */}
 
       <section>
         <BrandImpact />
