@@ -6,7 +6,6 @@ const API_KEY = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY
 if (!API_KEY) throw new Error('GOOGLE_API_KEY or GEMINI_API_KEY is required in env')
 
 const MODEL_NAME = process.env.GEMINI_EMBED_MODEL || 'text-embedding-004'
-
 const genAI = new GoogleGenerativeAI(API_KEY)
 const model = genAI.getGenerativeModel({ model: MODEL_NAME })
 

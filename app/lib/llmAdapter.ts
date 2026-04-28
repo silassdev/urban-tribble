@@ -9,6 +9,8 @@ if (!API_KEY) console.warn('⚠️  GOOGLE_API_KEY or GEMINI_API_KEY is missing 
 
 const genAI = new GoogleGenerativeAI(API_KEY || 'MISSING_KEY')
 
+const CHAT_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash-8b'
+
 export async function generateAnswer({ systemPrompt, messages, contextDocs }: { systemPrompt: string, messages: any[], contextDocs: any[] }) {
     if (!API_KEY) return { reply: "Setup Error: Missing API Key. Please set GOOGLE_API_KEY or GEMINI_API_KEY in your .env.local file.", structured: null }
 
