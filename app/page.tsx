@@ -3,10 +3,10 @@ import Hero from '@/app/components/Hero'
 import Marquee from '@/app/components/Marquee'
 import AnimatedLines from '@/app/components/AnimatedLines'
 import FeatureGrid from '@/app/components/FeatureGrid'
-import Team from '@/app/components/Team'
 import Packages from '@/app/components/Packages'
 import SVGDrawing from '@/app/components/SVGDrawing'
 import ShowcaseProjectImage from '@/app/components/ShowcaseProjectImage'
+import BrandImpact from '@/app/components/BrandImpact'
 import { PROJECTS } from '@/app/data/projectsData'
 
 export default function Page() {
@@ -30,6 +30,10 @@ export default function Page() {
       </section>
 
       <section>
+        <BrandImpact />
+      </section>
+
+      <section>
         <Packages />
       </section>
 
@@ -39,10 +43,6 @@ export default function Page() {
 
       <section>
         <FeatureGrid />
-      </section>
-
-      <section>
-        <Team />
       </section>
 
       <section>
