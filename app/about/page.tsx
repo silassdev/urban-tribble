@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FiArrowRight, FiCheckCircle, FiLayers, FiCpu, FiTrendingUp, FiUsers, FiAward, FiActivity } from 'react-icons/fi';
-import Team from '@/app/components/Team';
 
 const stats = [
     { label: 'Successful Projects', value: '120+', icon: FiCheckCircle },
@@ -171,10 +170,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* TEAM SECTION (Existing Component) */}
-            <div className="pt-20">
-                <Team />
-            </div>
+
 
             {/* CALL TO ACTION */}
             <section className="py-32 px-6">
