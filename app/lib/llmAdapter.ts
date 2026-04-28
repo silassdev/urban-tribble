@@ -30,10 +30,10 @@ export async function generateAnswer({ systemPrompt, messages, contextDocs }: { 
     if (!content) return { reply: "I didn't catch that.", structured: null }
 
     try {
-        // Create model with correct systemInstruction format (parts only, no role wrapper)
+        // Create model with systemInstruction as a plain string (accepted by SDK and avoids Content type requirements)
         const chatModel = genAI.getGenerativeModel({
             model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
-            systemInstruction: { parts: [{ text: finalSystemPrompt }] }
+            systemInstruction: finalSystemPrompt
         })
 
         const chat = chatModel.startChat({
