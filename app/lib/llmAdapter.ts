@@ -34,7 +34,7 @@ export async function generateAnswer({ systemPrompt, messages, contextDocs }: { 
     try {
         // Create model with systemInstruction as a plain string (accepted by SDK and avoids Content type requirements)
         const chatModel = genAI.getGenerativeModel({
-            model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+            model: CHAT_MODEL,
             systemInstruction: finalSystemPrompt
         })
 
