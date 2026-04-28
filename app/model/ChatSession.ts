@@ -35,4 +35,5 @@ const ChatSessionSchema = new mongoose.Schema<IChatSession>({
     messages: { type: [MessageSchema], default: [] }
 }, { timestamps: true })
 
-export default mongoose.model<IChatSession>('ChatSession', ChatSessionSchema)
+export default (mongoose.models.ChatSession as mongoose.Model<IChatSession>) ||
+    mongoose.model<IChatSession>('ChatSession', ChatSessionSchema)
